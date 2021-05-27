@@ -1,0 +1,33 @@
+.link {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: none;
+  color: #f2f2f3;
+  composes: ml-2 from global;
+  composes: mt-4 from global;
+  composes: mb-4 from global;
+}
+.link:first-of-type {
+  margin-left: 0;
+}
+.text {
+  composes: text from global;
+  composes: text_type_main-default from global;
+  margin-left: 4px;
+  color: #8585ad;
+}
+.text:hover,
+.text:active {
+  color: #f2f2f3;
+}
+.text_active {
+  color: #f2f2f3;
+}
+.icon {
+  margin-right: 4px;
+  display: flex;
+  color: #8585ad;
+}

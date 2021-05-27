@@ -1,0 +1,15 @@
+.ingridients {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  composes: mr-5 from global;
+  flex-grow: 0;
+}
+.title {
+  composes: text_type_main-large from global;
+  composes: mt-10 from global;
+  composes: mb-5 from global;
+  align-self: flex-start;
+}
+

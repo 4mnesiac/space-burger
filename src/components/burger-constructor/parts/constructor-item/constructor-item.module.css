@@ -1,0 +1,17 @@
+.item_container {
+    display: flex;
+    align-items: center;   
+    width: 100%;
+    justify-content: flex-end;
+    list-style: none;
+}
+/* далее идут костыли (имхо) для импортируемых модулей */
+.item_container svg {
+    margin-right: 8px;
+}
+.item_container div {
+   flex-grow:1;
+}
+.item_container span:first-of-type + span {
+    flex-grow: 1;
+}

@@ -1,0 +1,21 @@
+.text {
+  color: #8585ad;
+  composes: text from global;
+  composes: text_type_main-default from global;
+}
+
+.nutrition_item {
+  min-width: 120px;
+  list-style: none;
+  padding: 0;
+  composes: ml-5 from global;
+}
+.nutrition_item:first-of-type {
+  margin-left: 0;
+}
+.value {
+  color: #8585ad;
+  composes: mt-2 from global;
+  composes: text from global;
+  composes: text_type_digits-default from global;
+}
