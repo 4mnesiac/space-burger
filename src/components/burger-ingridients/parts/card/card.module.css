@@ -1,8 +1,7 @@
 .picture {
   max-width: 240px;
   max-height: 120px;
-  composes: ml-4 from global;
-  composes: mr-4 from global;
+  composes: ml-4 mr-4 from global;
 }
 .image {
   width: 100%;
@@ -12,20 +11,17 @@
   flex-direction: column;
   max-width: 272px;
   position: relative;
-  composes: ml-6 from global;
-  composes: mb-10 from global;
+  composes: ml-6 mb-10 from global;
+  cursor: pointer;
 }
 .price {
   display: flex;
   justify-content: center;
   align-items: center;
-  composes: mt-1 from global;
-  composes: mb-1 from global;
-  composes: text_type_digits-medium from global;
+  composes: mt-1 mb-1 text_type_digits-medium from global;
 }
 .text {
-  composes: text from global;
-  composes: text_type_main-default from global;
+  composes: text text_type_main-default from global;
   min-height: 48px;
   text-align: center;
 }

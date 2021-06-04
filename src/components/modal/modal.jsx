@@ -1,29 +1,32 @@
 import React from 'react';
 import modalStyles from './modal.module.css';
-// eslint-disable-next-line no-unused-vars
-import {Details, OrderModal} from './parts';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ModalOverlay } from './parts';
 
-export default class Modal extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: true,
-        }
+export default function Modal ({title, isOpen, onClose, children}) {
+    const modalRoot = document.getElementById('modal-root');
+
+        return ReactDOM.createPortal(
+            <ModalOverlay isOpen={isOpen}>  
+                <div className={modalStyles.modal}>
+                        <h2 className={modalStyles.heading}>{title}</h2>
+                        <span className={modalStyles.close} onClick={onClose}>
+                            <CloseIcon />
+                        </span>
+
+                    {children}
+                </div>
+            </ModalOverlay>
+        , modalRoot
+    )
     }
 
-    handleClose = () => {
-        this.setState({
-            isOpen: !this.state.isOpen,
-        })
+Modal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    title: PropTypes.string,
     }
 
-    render() {
-        return (
-            <section className={this.state.isOpen ? `${modalStyles.overlay} ${modalStyles.overlay_opened}` : modalStyles.overlay} >
-                {/* логика открытия модалки не реализовывалась в рамках 1 спринта */}
-                {/* <Details data={this.props.data[2]} toClose={this.handleClose} /> */}
-                <OrderModal toClose={this.handleClose} />
-            </section>
-        )
-    }
-}
+

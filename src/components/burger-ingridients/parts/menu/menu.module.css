@@ -3,26 +3,20 @@
   grid-template-columns: repeat(2, minmax(200px, 272px));
   grid-row-gap: 32px;
   grid-column-gap: 24px;
-  composes: ml-4 from global;
-  composes: mr-4 from global;
+  composes: ml-4 mr-4 from global;
 }
 .text {
-  composes: text from global;
-  composes: text_type_main-default from global;
+  composes: text text_type_main-default from global;
   min-height: 48px;
   text-align: center;
 }
 .title {
-  composes: text from global;
-  composes: text_type_main-medium from global;
+  composes: text text_type_main-medium mb-6 from global;
   align-self: flex-start;
-  composes: mb-6 from global;
 }
 .price {
   display: flex;
   justify-content: center;
   align-items: center;
-  composes: mt-1 from global;
-  composes: mb-1 from global;
-  composes: text_type_digits-medium from global;
+  composes: mt-1 mb-1 text_type_digits-medium from global;
 }

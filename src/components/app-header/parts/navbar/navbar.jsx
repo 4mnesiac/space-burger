@@ -9,8 +9,8 @@ import {
 import {NavItem} from "../nav-item";
 import navbarStyles from "./navbar.module.css";
 
-export default class NavBar extends React.Component {
-  render() {
+export default function NavBar() {
+
     return (
         <nav className={navbarStyles.navbar}>
           <ul className={navbarStyles.nav_menu}>
@@ -35,7 +35,7 @@ export default class NavBar extends React.Component {
           </ul>
         </nav>
     );
-  }
+  
 }
 
 
