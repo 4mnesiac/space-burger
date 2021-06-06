@@ -2,17 +2,12 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    composes: mt-10 from global;
-    composes: mb-10 from global;
-    composes: pl-4 from global;
-    composes: pr-4 from global;
+    composes: mt-10 mb-10 pl-4 pr-4 from global;
 }
 .price {
     display: flex;
     align-items: center;
-    composes: mr-10 from global;
-    composes: text from global;
-    composes: text_type_digits-medium from global;
+    composes: text text_type_digits-medium mr-10 from global;
 }
 .price svg {
     width: 43px;

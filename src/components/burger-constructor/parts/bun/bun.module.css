@@ -4,10 +4,10 @@
     gap: 10px;
     composes: pl-8 pr-6 from global;
 }
-.bun_position_top {
+/* .bun_position_top {
     margin-bottom: 16px;
 }
 .bun_position_bottom {
     margin-top: 16px;
-}
+} */
   

@@ -7,3 +7,8 @@
     composes: pl-4 from global;
     composes: pr-4 from global;
 }
+.list_item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

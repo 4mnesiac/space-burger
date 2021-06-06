@@ -11,6 +11,7 @@
     overflow-y: auto;
     scrollbar-color: #8585AD #2F2F37;
     scrollbar-width: thin;
+    composes: mb-4 mt-4 from global;
 }
 
 .scroller::-webkit-scrollbar {
