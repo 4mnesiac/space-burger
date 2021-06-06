@@ -3,6 +3,7 @@ import cardStyles from './card.module.css';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import IngredientDetails from 'components/ingredient-details/ingredient-details';
+import Modal from '../../../modal/modal'
 
 const Card = ({ item, count }) => {
     const [isIngModalOpen, setIsIngModalOpen] = React.useState(false)
@@ -26,7 +27,11 @@ const Card = ({ item, count }) => {
             </picture>
             <span className={cardStyles.price}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
             <p className={cardStyles.text}>{item.name}</p>
-            {isIngModalOpen && <IngredientDetails isOpen={isIngModalOpen} onClose={(e) => handleClose(e)} ingredientToShow={ingredientToShow} />}
+            {isIngModalOpen && (
+                <Modal title='Детали ингридиента' isOpen={isIngModalOpen} onClose={handleClose}>
+                    <IngredientDetails ingredientToShow={ingredientToShow} />
+                </Modal>)
+            }
         </article>
     )
 }

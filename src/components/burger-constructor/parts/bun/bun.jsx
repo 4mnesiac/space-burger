@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const Bun = ({data, position}) => {
     return ( 
-        <div className={`${bunStyles.bun} ${position === 'top' ? bunStyles.bun_position_top : bunStyles.bun_position_bottom}`} >
+        <div className={bunStyles.bun}>
             <ConstructorElement
                 type={position}
                 isLocked={true}

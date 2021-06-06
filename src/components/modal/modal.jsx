@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ModalOverlay } from './parts';
 
-export default function Modal ({title, isOpen, onClose, children}) {
-    const modalRoot = document.getElementById('modal-root');
+const modalRoot = document.getElementById('modal-root');
 
+export default function Modal ({title, isOpen, onClose, children}) {
         return ReactDOM.createPortal(
             <ModalOverlay isOpen={isOpen}>  
                 <div className={modalStyles.modal}>

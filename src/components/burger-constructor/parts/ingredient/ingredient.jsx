@@ -5,16 +5,15 @@ import PropTypes from 'prop-types';
 
 const Ingredient = ({item, type }) => {
     return ( 
-        <li className={ingredientStyles.item_container} key={item._id}>
+        <div className={ingredientStyles.item_container}>
             <DragIcon type="primary" />
             <ConstructorElement
                 type={type}
-                isLocked={false}
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
             />
-        </li>
+        </div>
     );
 }
  

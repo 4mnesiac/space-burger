@@ -3,6 +3,7 @@ import orderStyles from './order.module.css'
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import OrderDetails from '../../../order-details/order-details';
+import Modal from '../../../modal/modal';
 
 const Order = ({total}) => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -20,7 +21,13 @@ const Order = ({total}) => {
                 {total}&nbsp;<CurrencyIcon type="primary" />
             </span>
             <Button onClick={handleOpenModal}>Оформить заказ</Button>
-            {isOpen && <OrderDetails isOpen={isOpen} onClose={handleCloseModal}/>}
+            {isOpen && 
+                (
+                    <Modal isOpen={isOpen} onClose={handleCloseModal}>
+                        <OrderDetails />
+                    </Modal>
+                )
+            }
         </div>
     )
 }
