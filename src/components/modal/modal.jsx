@@ -9,7 +9,7 @@ const modalRoot = document.getElementById('modal-root');
 
 export default function Modal ({title, isOpen, onClose, children}) {
         return ReactDOM.createPortal(
-            <ModalOverlay isOpen={isOpen}>  
+            <ModalOverlay isOpen={isOpen} onClick={onClose}>  
                 <div className={modalStyles.modal}>
                         <h2 className={modalStyles.heading}>{title}</h2>
                         <span className={modalStyles.close} onClick={onClose}>

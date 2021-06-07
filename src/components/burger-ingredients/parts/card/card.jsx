@@ -14,7 +14,6 @@ const Card = ({ item, count }) => {
     }
     const handleClose = (e) => {
         e.stopPropagation();
-        setIngredientToShow({})
         setIsIngModalOpen(false);
     };
     return (
