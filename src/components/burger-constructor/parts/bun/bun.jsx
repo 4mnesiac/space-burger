@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 const Bun = ({data, position}) => {
     return ( 
         <div className={bunStyles.bun}>
+            {data &&
             <ConstructorElement
                 type={position}
                 isLocked={true}
@@ -13,6 +14,7 @@ const Bun = ({data, position}) => {
                 price={data.price}
                 thumbnail={data.image}
             />
+            }
         </div>
      );
 }
@@ -24,6 +26,6 @@ Bun.propTypes = {
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         image: PropTypes.string.isRequired,
-    }).isRequired,
+    }),
     position: PropTypes.string.isRequired,
 }
