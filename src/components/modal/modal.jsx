@@ -8,8 +8,21 @@ import { ModalOverlay } from './parts';
 const modalRoot = document.getElementById('modal-root');
 
 export default function Modal ({title, isOpen, onClose, children}) {
+    React.useEffect(() => {
+        const handleEsc = (e) => {
+          if (e.keyCode === 27) {
+            onClose(e);
+          }
+        };
+        window.addEventListener("keydown", handleEsc);
+    
+        return () => {
+          window.removeEventListener("keydown", handleEsc);
+        };
+      }, [onClose]);
+
         return ReactDOM.createPortal(
-            <ModalOverlay isOpen={isOpen} onClick={onClose}>  
+            <div className={modalStyles.container}>
                 <div className={modalStyles.modal}>
                         <h2 className={modalStyles.heading}>{title}</h2>
                         <span className={modalStyles.close} onClick={onClose}>
@@ -18,7 +31,8 @@ export default function Modal ({title, isOpen, onClose, children}) {
 
                     {children}
                 </div>
-            </ModalOverlay>
+                <ModalOverlay isOpen={isOpen} onClick={onClose} />  
+            </div>
         , modalRoot
     )
     }
@@ -27,6 +41,7 @@ Modal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string,
-    }
+    children: PropTypes.object.isRequired
+}
 
 
