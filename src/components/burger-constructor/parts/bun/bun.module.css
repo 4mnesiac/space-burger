@@ -1,0 +1,6 @@
+.bun {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    composes: pl-8 pr-6 from global;
+}
