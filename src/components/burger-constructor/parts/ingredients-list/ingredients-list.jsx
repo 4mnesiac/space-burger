@@ -1,28 +1,25 @@
 import React from 'react';
 import { Ingredient } from "../ingredient";
 import ingredientsListStyles from './ingredients-list.module.css';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const IngredientsList = ({ data, type }) => {
+const IngredientsList = () => {
+    const { fillers } = useSelector(store => store.cart.sortedCart);
+
     return (
-        <ul className={ingredientsListStyles.main_container}>
-            {data.map((item) => (
-                <li className={ingredientsListStyles.list_item} key={item._id}>
-                    <Ingredient
-                        item={item}
-                        type={type}
-                    />
-                </li>
-            ))
+        <ul className={ingredientsListStyles.main_container} >
+            {fillers && fillers.map((el, index) =>
+                <Ingredient
+                    key={el.constructorId || el.item._id}
+                    item={el.item}
+                    id={el.item._id}
+                    type={el.item.type}
+                    index={index}
+                />
+            )
             }
         </ul>
     );
 }
 
 export default IngredientsList;
-
-IngredientsList.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-    }).isRequired).isRequired
-}

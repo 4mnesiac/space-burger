@@ -1,11 +1,11 @@
 import React from 'react';
 import nutritionListStyles from './nutrition-list.module.css';
 import { NutritionItem } from '../nutrition-item'
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 
-const NutritionList = ({ calories, proteins, fat, carbohydrates }) => {
-
+const NutritionList = () => {
+    const { calories, proteins, fat, carbohydrates } = useSelector(store => store.ingredients.ingredientToShow)
     return (
         <ul className={nutritionListStyles.nutrition}>
             <NutritionItem title='Калории,ккал' value={calories} />
@@ -16,10 +16,3 @@ const NutritionList = ({ calories, proteins, fat, carbohydrates }) => {
     )
 }
 export default NutritionList;
-
-NutritionList.propTypes = {
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number.isRequired,
-}

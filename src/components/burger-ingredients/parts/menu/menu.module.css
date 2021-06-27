@@ -1,4 +1,6 @@
 .items {
+  padding: 0;
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(2, minmax(200px, 272px));
   grid-row-gap: 32px;
@@ -19,4 +21,21 @@
   justify-content: center;
   align-items: center;
   composes: mt-1 mb-1 text_type_digits-medium from global;
+}
+
+.scroller {
+  max-height: 900px;
+  overflow-y: auto;
+  scrollbar-color: #8585AD #2F2F37;
+  scrollbar-width: thin;
+}
+
+.scroller::-webkit-scrollbar {
+  width: 8px;
+}
+.scroller::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+.scroller::-webkit-scrollbar-thumb {
+  background: #8585AD;
 }

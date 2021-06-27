@@ -10,20 +10,3 @@
   composes: text_type_main-large mt-10 mb-5 from global;
   align-self: flex-start;
 }
-
-.scroller {
-  max-height: 900px;
-  overflow-y: auto;
-  scrollbar-color: #8585AD #2F2F37;
-  scrollbar-width: thin;
-}
-
-.scroller::-webkit-scrollbar {
-  width: 8px;
-}
-.scroller::-webkit-scrollbar-track {
-  background: #2F2F37;
-}
-.scroller::-webkit-scrollbar-thumb {
-  background: #8585AD;
-}

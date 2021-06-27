@@ -1,18 +1,28 @@
 import React from 'react';
 import orderStyles from './order.module.css'
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import OrderDetails from '../../../order-details/order-details';
 import Modal from '../../../modal/modal';
+import { clearOrder, setOrder } from 'services/orderSlice';
+import { closeOrderModal, openOrderModal } from 'services/modalSlice';
+import { resetCart } from 'services/cartSlice';
 
-const Order = ({total}) => {
-    const [isOpen, setIsOpen] = React.useState(false);
+const Order = () => {
+    const {isOrderModalOpen} = useSelector(store => store.modal)
+    const { total } = useSelector(store => store.cart);
+    const {itemsToOrder} = useSelector(store => store.cart)
+    const dispatch = useDispatch();
 
     const handleOpenModal = () => {
-        setIsOpen(true);
+        dispatch(setOrder(itemsToOrder))
+        dispatch(openOrderModal())
     };
+
     const handleCloseModal = () => {
-        setIsOpen(false);
+        dispatch(closeOrderModal())
+        dispatch(resetCart())
+        dispatch(clearOrder())
       };
 
     return (
@@ -21,10 +31,10 @@ const Order = ({total}) => {
                 {total}&nbsp;<CurrencyIcon type="primary" />
             </span>
             <Button onClick={handleOpenModal}>Оформить заказ</Button>
-            {isOpen && 
+            {isOrderModalOpen && 
                 (
-                    <Modal isOpen={isOpen} onClose={handleCloseModal}>
-                        <OrderDetails />
+                    <Modal name="Order" onClose={handleCloseModal}>
+                        <OrderDetails/>
                     </Modal>
                 )
             }
@@ -32,7 +42,3 @@ const Order = ({total}) => {
     )
 }
 export default Order;
-
-Order.propTypes = {
-    total: PropTypes.number.isRequired
-}
