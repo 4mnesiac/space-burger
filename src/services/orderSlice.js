@@ -20,7 +20,6 @@ export const setOrder = createAsyncThunk(
                 throw new Error('Fetch error')
             }
             const order = await response.json()
-            console.log(order)
             return order;
         } catch (error) {
             console.log(error)
@@ -54,7 +53,7 @@ export const orderSlice = createSlice({
         .addCase(setOrder.rejected, (state) => {
             state.isLoading = false;
             state.hasError = true;
-            clearOrder()
+            state.order = {};
           })
     }
 })

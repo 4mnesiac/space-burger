@@ -30,7 +30,7 @@ const Bun = ({ position }) => {
                 :
                 <ConstructorElement
                     type={position}
-                    text={"Перетащите сюда вашу булку"}
+                    text={"Место для аппетитной булки"}
                 />
 
             }

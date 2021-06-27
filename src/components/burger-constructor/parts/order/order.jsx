@@ -11,12 +11,14 @@ import { resetCart } from 'services/cartSlice';
 const Order = () => {
     const {isOrderModalOpen} = useSelector(store => store.modal)
     const { total } = useSelector(store => store.cart);
-    const {itemsToOrder} = useSelector(store => store.cart)
+    const { itemsToOrder } = useSelector(store => store.cart)
     const dispatch = useDispatch();
 
     const handleOpenModal = () => {
-        dispatch(setOrder(itemsToOrder))
-        dispatch(openOrderModal())
+        if (itemsToOrder.length) {
+            dispatch(setOrder(itemsToOrder))
+            dispatch(openOrderModal())
+        }
     };
 
     const handleCloseModal = () => {
@@ -24,7 +26,7 @@ const Order = () => {
         dispatch(resetCart())
         dispatch(clearOrder())
       };
-
+    
     return (
         <div className={orderStyles.order}>
             <span className={orderStyles.price}>

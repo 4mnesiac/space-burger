@@ -8,7 +8,7 @@ export default function OrderDetails() {
     return (
         <>
             <span className={orderDetailsStyles.order_number}>
-                {order.success && order.order.number}
+                {order.success && order.order.number }
             </span>
 
             <span className={orderDetailsStyles.subtitle}>{isLoading ? 'загружаем...' : 'идентификатор заказа'}</span>
@@ -16,8 +16,8 @@ export default function OrderDetails() {
             <span className={orderDetailsStyles.icon}>
                 <OrderDone />
             </span>
-            <p className={orderDetailsStyles.text}>Ваш заказ начали готовить</p>
-            <p className={`${orderDetailsStyles.text} ${orderDetailsStyles.text_secondary}`}>Дождитесь готовности на орбитальной станции</p>
+            <p className={orderDetailsStyles.text}>{order.success ? 'Ваш заказ начали готовить' : ''}</p>
+            <p className={`${orderDetailsStyles.text} ${orderDetailsStyles.text_secondary}`}>{order.success ? 'Дождитесь готовности на орбитальной станции' : 'Дождитесь ответа оператора'}</p>
         </>
     )
 }
