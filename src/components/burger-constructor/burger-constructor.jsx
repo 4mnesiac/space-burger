@@ -4,7 +4,7 @@ import { IngredientsList, Order, Bun } from './parts';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useDrop } from "react-dnd";
-import { addIngredient, countTotal} from 'services/cartSlice';
+import { addIngredient, countTotal } from 'services/cartSlice';
 
 export default function BurgerConstructor() {
     const { bun } = useSelector(store => store.cart.sortedCart);
@@ -24,7 +24,6 @@ export default function BurgerConstructor() {
     const border = isHover ? '1px dashed gray' : 'none';
 
     return (
-
         <section className={constructorStyles.constructor} ref={dropRef} style={{ border }} >
             <Bun position="top" data={bun} />
             <div className={constructorStyles.scroller}>
@@ -33,10 +32,5 @@ export default function BurgerConstructor() {
             <Bun position="bottom" data={bun} />
             <Order />
         </section >
-
-
     );
-
 }
-
-

@@ -22,7 +22,7 @@ export const setOrder = createAsyncThunk(
             const order = await response.json()
             return order;
         } catch (error) {
-            console.log(error)
+            console.log('Order error' + error.message)
         }
     }
 );

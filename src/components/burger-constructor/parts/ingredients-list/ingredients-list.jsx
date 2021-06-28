@@ -8,16 +8,15 @@ const IngredientsList = () => {
 
     return (
         <ul className={ingredientsListStyles.main_container} >
-            {fillers && fillers.map((el, index) =>
+            {fillers && fillers.map((el, index) => (
                 <Ingredient
                     key={el.constructorId || el.item._id}
                     item={el.item}
                     id={el.item._id}
                     type={el.item.type}
                     index={index}
-                />
-            )
-            }
+                />)
+            )}
         </ul>
     );
 }

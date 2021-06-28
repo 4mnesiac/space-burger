@@ -9,12 +9,13 @@ import { closeOrderModal, openOrderModal } from 'services/modalSlice';
 import { resetCart } from 'services/cartSlice';
 
 const Order = () => {
-    const {isOrderModalOpen} = useSelector(store => store.modal)
+    const { isOrderModalOpen } = useSelector(store => store.modal)
     const { total } = useSelector(store => store.cart);
     const { itemsToOrder } = useSelector(store => store.cart)
     const dispatch = useDispatch();
 
     const handleOpenModal = () => {
+        // дизейблим кнопку если конструктор пуст
         if (itemsToOrder.length) {
             dispatch(setOrder(itemsToOrder))
             dispatch(openOrderModal())
@@ -25,18 +26,18 @@ const Order = () => {
         dispatch(closeOrderModal())
         dispatch(resetCart())
         dispatch(clearOrder())
-      };
-    
+    };
+
     return (
         <div className={orderStyles.order}>
             <span className={orderStyles.price}>
                 {total}&nbsp;<CurrencyIcon type="primary" />
             </span>
             <Button onClick={handleOpenModal}>Оформить заказ</Button>
-            {isOrderModalOpen && 
+            {isOrderModalOpen &&
                 (
                     <Modal name="Order" onClose={handleCloseModal}>
-                        <OrderDetails/>
+                        <OrderDetails />
                     </Modal>
                 )
             }

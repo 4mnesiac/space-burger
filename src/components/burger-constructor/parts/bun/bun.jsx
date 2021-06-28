@@ -19,20 +19,20 @@ const Bun = ({ position }) => {
 
     return (
         <div className={isEmpty ? bunStyles.bun_empty : bunStyles.bun}>
-            {!isEmpty ?
-                <ConstructorElement
-                    type={position}
-                    isLocked={true}
-                    text={bun.name}
-                    price={bun.price}
-                    thumbnail={bun.image}
-                />
-                :
-                <ConstructorElement
-                    type={position}
-                    text={"Место для аппетитной булки"}
-                />
-
+            {!isEmpty
+                ? (
+                    <ConstructorElement
+                        type={position}
+                        isLocked={true}
+                        text={bun.name}
+                        price={bun.price}
+                        thumbnail={bun.image}
+                    />)
+                : (
+                    <ConstructorElement
+                        type={position}
+                        text={"Место для аппетитной булки"}
+                    />)
             }
         </div>
     );

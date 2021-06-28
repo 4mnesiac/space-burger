@@ -10,10 +10,6 @@ import { useDrag, useDrop } from 'react-dnd';
 const Ingredient = ({ id, item, index, type }) => {
     const dispatch = useDispatch();
     const ref = useRef(null);
-    const handleClose = () => {
-        dispatch(deleteIngredient({ id, itemIndex: index }))
-        dispatch(countTotal())
-    }
     const [{ handlerId }, drop] = useDrop({
         accept: "sort",
         collect(monitor) {
@@ -61,11 +57,15 @@ const Ingredient = ({ id, item, index, type }) => {
         }),
     });
 
+    const handleClose = () => {
+        dispatch(deleteIngredient({ id, itemIndex: index }))
+        dispatch(countTotal())
+    }
     const opacity = isDragging ? 0 : 1;
+    
     drag(drop(ref));
 
     return (
-
         <li className={ingredientStyles.list_item} style={{ opacity }} data-handler-id={handlerId} ref={ref}>
             <div className={ingredientStyles.item_container}>
                 <DragIcon type="primary" />
@@ -90,7 +90,7 @@ Ingredient.propTypes = {
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         image: PropTypes.string.isRequired,
-    }),
+    }).isRequired,
     index: PropTypes.number.isRequired,
-    type: PropTypes.string,
+    type: PropTypes.string.isRequired,
 }

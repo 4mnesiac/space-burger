@@ -18,9 +18,7 @@ const tabs = [
   },
 ]
 
-export default function Tabs({ current, setCurrent }) {
-
-
+function Tabs({ current }) {
   return (
     <div className={tabStyles.tab_container}>
       {tabs.map(({ value, title }) => (
@@ -35,6 +33,7 @@ export default function Tabs({ current, setCurrent }) {
     </div>
   );
 }
+export default React.memo(Tabs);
 
 Tabs.propTypes = {
   current: PropTypes.string.isRequired,
