@@ -19,3 +19,8 @@
   align-self: flex-end;
   cursor: pointer;
 }
+.name {
+  width: 80%;
+  composes: text text_type_main-default mb-2 mt-2 from global;
+  color: var(--text-inactive-color);
+}
