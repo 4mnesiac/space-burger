@@ -1,0 +1,11 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  composes: pt-20 from global;
+}
+
+.title {
+  composes: text_type_main-large text from global;
+  color: var(--text-primary-color);
+}

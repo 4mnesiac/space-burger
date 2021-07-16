@@ -1,0 +1,25 @@
+.ingredient {
+    display: flex;
+    align-items: center;
+}
+
+.ingredient_name {
+    composes: text_type_main-default text ml-4 from global;
+    width: 409px;
+    margin-right: auto;
+}
+
+.price {
+    composes: text text_type_digits-default from global;
+    display: flex;
+    align-items: center;
+}
+
+.price>svg {
+    margin-left: 9px;
+}
+
+.picture {
+    border-radius: 100%;
+    background-image: 2px solid var(--gradient)
+}

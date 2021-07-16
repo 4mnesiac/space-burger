@@ -213,3 +213,270 @@ export const data =
     __v: 0,
   },
 ];
+
+export const mockOrders = [
+  {
+     id: '034532',
+     status: 'ready',
+     timestamp: 'Сегодня, 16:20 i-GMT+3',
+     title: 'Death Star Starship Main бургер',
+     ingredientIDs: [
+        "60d3b41abdacab0026a733c6",
+        "60d3b41abdacab0026a733c8", 
+        "60d3b41abdacab0026a733c9", 
+        "60d3b41abdacab0026a733ca", 
+        "60d3b41abdacab0026a733cb"],
+     price: 480
+  },
+  {
+     id: '034533',
+     status: 'ready',
+     timestamp: 'Сегодня, 13:20 i-GMT+3',
+     title: 'Interstellar бургер',
+     ingredientIDs: [
+        "60d3b41abdacab0026a733c6", 
+        "60d3b41abdacab0026a733c8", 
+        "60d3b41abdacab0026a733c9", 
+        "60d3b41abdacab0026a733ca", 
+        "60d3b41abdacab0026a733cb",
+        "60d3b41abdacab0026a733cc",
+        "60d3b41abdacab0026a733cd"
+     ],
+     price: 560
+  },
+  {
+     id: '034534',
+     status: 'inprogress',
+     timestamp: 'Вчера, 13:50 i-GMT+3',
+     title: 'Black Hole Singularity острый бургер',
+     ingredientIDs: [
+        "60d3b41abdacab0026a733c6", 
+        "60d3b41abdacab0026a733c8", 
+        "60d3b41abdacab0026a733c9", 
+        "60d3b41abdacab0026a733ca", 
+        "60d3b41abdacab0026a733cb",
+        "60d3b41abdacab0026a733cc"
+     ],
+     price: 510
+  },
+  {
+     id: '034535',
+     status: 'inprogress',
+     timestamp: '2 дня назад, 21:53 i-GMT+3',
+     title: 'Supernova Infinity бургер',
+     ingredientIDs: [
+        "60d3b41abdacab0026a733c6", 
+        "60d3b41abdacab0026a733c8", 
+        "60d3b41abdacab0026a733c9"
+     ],
+     price: 2510
+  },
+  {
+    id: '034536',
+    status: 'ready',
+    timestamp: 'Сегодня, 16:24 i-GMT+3',
+    title: 'Death Star Starship Main бургер',
+    ingredientIDs: [
+       "60d3b41abdacab0026a733c6",
+       "60d3b41abdacab0026a733c8", 
+       "60d3b41abdacab0026a733c9", 
+       "60d3b41abdacab0026a733ca", 
+       "60d3b41abdacab0026a733cb"],
+    price: 468
+ },
+ {
+  id: '034537',
+  status: 'ready',
+  timestamp: 'Сегодня, 16:24 i-GMT+3',
+  title: 'Death Star Starship Main бургер',
+  ingredientIDs: [
+     "60d3b41abdacab0026a733c6",
+     "60d3b41abdacab0026a733c8", 
+     "60d3b41abdacab0026a733c9", 
+     "60d3b41abdacab0026a733ca", 
+     "60d3b41abdacab0026a733cb"],
+  price: 123
+},
+{
+  id: '034538',
+  status: 'ready',
+  timestamp: 'Сегодня, 16:24 i-GMT+3',
+  title: 'Death Star Starship Main бургер',
+  ingredientIDs: [
+     "60d3b41abdacab0026a733c6",
+     "60d3b41abdacab0026a733c8", 
+     "60d3b41abdacab0026a733c9", 
+     "60d3b41abdacab0026a733ca", 
+     "60d3b41abdacab0026a733cb"],
+  price: 5435
+},
+
+]
+
+export const mockFeed = [
+  {
+    id: '034539',
+    datetime: '2021-07-10T12:12:22.908Z',
+    name: 'Interstellar бургер',
+    status: 'создан',
+    price: 144,
+    ingredients: [
+      {
+        name: 'Краторная булка N-200i',
+        image: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png'
+      },
+      {
+        name: 'Соус Spicy-X',
+        image: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png'
+      },
+      {
+        name: 'Соус фирменный Space Sauce',
+        image: 'https://code.s3.yandex.net/react/code/meat-04-mobile.png'
+      },
+      {
+        name: 'Хрустящие минеральные кольца',
+        image: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png'
+      },
+      {
+        name: 'Плоды Фалленианского дерева',
+        image: 'https://code.s3.yandex.net/react/code/sauce-02-mobile.png'
+      },
+      {
+        name: 'Мясо бессмертных моллюсков Protostomia',
+        image: 'https://code.s3.yandex.net/react/code/salad-mobile.png'
+      },
+    ]
+  },
+  {
+    id: '034540',
+    datetime: '2021-03-10T12:12:22.908Z',
+    name: 'Death Star Starship Main бургер',
+    status: 'готовится',
+    price: 2230,
+    ingredients: [
+      {
+        name: 'Соус фирменный Space Sauce',
+        image: 'https://code.s3.yandex.net/react/code/meat-04-mobile.png'
+      },
+      {
+        name: 'Мясо бессмертных моллюсков Protostomia',
+        image: 'https://code.s3.yandex.net/react/code/salad-mobile.png'
+      },
+      {
+        name: 'Хрустящие минеральные кольца',
+        image: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png'
+      },
+      {
+        name: 'Плоды Фалленианского дерева',
+        image: 'https://code.s3.yandex.net/react/code/sauce-02-mobile.png'
+      },
+      {
+        name: 'Мясо бессмертных моллюсков Protostomia',
+        image: 'https://code.s3.yandex.net/react/code/salad-mobile.png'
+      },
+      {
+        name: 'Краторная булка N-200i',
+        image: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png'
+      },
+      {
+        name: 'Соус Spicy-X',
+        image: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png'
+      }
+    ]
+  },
+  {
+    id: '034541',
+    datetime: '2021-06-10T12:12:22.908Z',
+    name: 'Black Hole Singularity острый бургер',
+    status: 'Выполнен',
+    price: 14004,
+    ingredients: [
+      {
+        name: 'Краторная булка N-200i',
+        image: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png'
+      },
+      {
+        name: 'Хрустящие минеральные кольца',
+        image: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png'
+      },
+      {
+        name: 'Плоды Фалленианского дерева',
+        image: 'https://code.s3.yandex.net/react/code/sauce-02-mobile.png'
+      },
+       {
+        name: 'Соус Spicy-X',
+        image: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png'
+      },
+      {
+        name: 'Соус фирменный Space Sauce',
+        image: 'https://code.s3.yandex.net/react/code/meat-04-mobile.png'
+      },
+      {
+        name: 'Мясо бессмертных моллюсков Protostomia',
+        image: 'https://code.s3.yandex.net/react/code/salad-mobile.png'
+      },
+       {
+        name: 'Краторная булка N-200i',
+        image: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png'
+      },
+      {
+        name: 'Хрустящие минеральные кольца',
+        image: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png'
+      },
+      {
+        name: 'Плоды Фалленианского дерева',
+        image: 'https://code.s3.yandex.net/react/code/sauce-02-mobile.png'
+      },
+    ]
+  },
+  {
+    id: '034542',
+    datetime: '2021-05-10T12:12:22.908Z',
+    name: 'Supernova Infinity бургер',
+    status: 'Выполнен',
+    price: 14,
+    ingredients: [
+      {
+        name: 'Соус Spicy-X',
+        image: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png'
+      },
+      {
+        name: 'Хрустящие минеральные кольца',
+        image: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png'
+      },
+      {
+        name: 'Плоды Фалленианского дерева',
+        image: 'https://code.s3.yandex.net/react/code/sauce-02-mobile.png'
+      },
+      {
+        name: 'Мясо бессмертных моллюсков Protostomia',
+        image: 'https://code.s3.yandex.net/react/code/salad-mobile.png'
+      },
+    ]
+  },
+  {
+    id: '034545',
+    datetime: '2021-05-10T12:12:22.908Z',
+    name: 'Black Hole Singularity острый бургер',
+    status: 'Выполнен',
+    price: 14,
+    ingredients: [
+      {
+        name: 'Мясо бессмертных моллюсков Protostomia',
+        image: 'https://code.s3.yandex.net/react/code/salad-mobile.png'
+      },
+      {
+        name: 'Соус Spicy-X',
+        image: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png'
+      },
+      {
+        name: 'Хрустящие минеральные кольца',
+        image: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png'
+      },
+      {
+        name: 'Плоды Фалленианского дерева',
+        image: 'https://code.s3.yandex.net/react/code/sauce-02-mobile.png'
+      }
+    ]
+  }
+];

@@ -1,0 +1,10 @@
+.button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user_info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}

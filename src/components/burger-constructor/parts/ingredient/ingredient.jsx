@@ -3,7 +3,7 @@ import ingredientStyles from "./ingredient.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { deleteIngredient, countTotal, moveIngredient } from 'services/cartSlice';
+import { deleteIngredient, countTotal, moveIngredient } from 'services/slices/cartSlice';
 import { useDrag, useDrop } from 'react-dnd';
 
 
@@ -62,7 +62,7 @@ const Ingredient = ({ id, item, index, type }) => {
         dispatch(countTotal())
     }
     const opacity = isDragging ? 0 : 1;
-    
+
     drag(drop(ref));
 
     return (

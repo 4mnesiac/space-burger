@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ingredientsReducer from "./ingredientsSlice";
-import orderReducer from "./orderSlice";
-import cartReducer from "./cartSlice";
-import modalReducer from "./modalSlice";
+import ingredientsReducer from "./slices/ingredientsSlice";
+import orderReducer from "./slices/orderSlice";
+import cartReducer from "./slices/cartSlice";
+import modalReducer from "./slices/modalSlice";
+import authReducer from './slices/authSlice';
+import passwordReducer from './slices/passwordSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ const store = configureStore({
     order: orderReducer,
     cart: cartReducer,
     modal: modalReducer,
+    auth: authReducer,
+    password: passwordReducer
   },
   devTools: true,
 });

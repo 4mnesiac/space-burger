@@ -4,31 +4,36 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
-
-
+import { Link, useLocation } from 'react-router-dom'
 
 
 const Card = ({ item, onClick }) => {
+    const location = useLocation()
     const { counts } = useSelector(store => store.cart)
     const [, dragRef] = useDrag({
         type: "ingredients",
-        item: {item},
+        item: { item },
         collect: monitor => ({
             isDrag: monitor.isDragging()
         })
     })
 
     return (
-        <article className={cardStyles.item} key={item._id} onClick={() => onClick(item)} ref={dragRef}>
-            {counts[item._id] > 0 && <Counter count={counts[item._id]} />}
-            <picture className={cardStyles.picture}>
-                <source media="(max-width: 767px)" srcSet={item.image_mobile} />
-                <source media="(min-width: 768px)" srcSet={item.image_large} />
-                <img className={cardStyles.image} src={item.image} alt={item.name} />
-            </picture>
-            <span className={cardStyles.price}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
-            <p className={cardStyles.text}>{item.name}</p>
-        </article>
+        <Link className={cardStyles.item} to={{
+            pathname: `/ingredients/${item._id}`,
+            state: { pushLocation: location }
+        }}>
+            <article key={item._id} onClick={() => onClick(item)} ref={dragRef}>
+                {counts[item._id] > 0 && <Counter count={counts[item._id]} />}
+                <picture className={cardStyles.picture}>
+                    <source media="(max-width: 767px)" srcSet={item.image_mobile} />
+                    <source media="(min-width: 768px)" srcSet={item.image_large} />
+                    <img className={cardStyles.image} src={item.image} alt={item.name} />
+                </picture>
+                <span className={cardStyles.price}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
+                <p className={cardStyles.text}>{item.name}</p>
+            </article>
+        </Link>
     )
 }
 export default Card;

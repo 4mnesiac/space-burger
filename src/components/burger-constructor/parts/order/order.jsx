@@ -4,9 +4,9 @@ import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-co
 import { useDispatch, useSelector } from 'react-redux';
 import OrderDetails from '../../../order-details/order-details';
 import Modal from '../../../modal/modal';
-import { clearOrder, setOrder } from 'services/orderSlice';
-import { closeOrderModal, openOrderModal } from 'services/modalSlice';
-import { resetCart } from 'services/cartSlice';
+import { clearOrder, setOrder } from 'services/slices/orderSlice';
+import { closeOrderModal, openOrderModal } from 'services/slices/modalSlice';
+import { resetCart } from 'services/slices/cartSlice';
 
 const Order = () => {
     const { isOrderModalOpen } = useSelector(store => store.modal)

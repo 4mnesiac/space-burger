@@ -47,25 +47,7 @@ export const cartSlice = createSlice({
     },
     resetCart: (state) => state = initialState,
     moveIngredient: (state, action) => {
-
       const { dragIndex, dropIndex } = action.payload;
-
-      // state.sortedCart.fillers = newState.fillers.splice(
-      //   dragIndex,
-      //   0,
-      //   newState.fillers.splice(dropIndex, 1)[0]
-      // );
-      // const dragItem = state.sortedCart.fillers[action.payload.dragIndex]
-      // const dropTarget = state.sortedCart.fillers[action.payload.dropIndex]
-
-      // newState.fillers.splice(dragIndex, 0, newState.fillers.splice(dropIndex, 1)[0])
-      // state.sortedCart.fillers = newState.fillers
-
-      // const newList = [...state.sortedCart.fillers]
-      // const dragItem = state.sortedCart.fillers.slice()[action.payload.dragIndex];
-      // const hoverItem = state.sortedCart.fillers.slice()[action.payload.dropIndex];
-      // newList[action.payload.dropIndex] = dragItem;
-      // newList[action.payload.dragIndex] = hoverItem;
       [state.sortedCart.fillers[dragIndex], state.sortedCart.fillers[dropIndex]] = [state.sortedCart.fillers[dropIndex], state.sortedCart.fillers[dragIndex]];
 
     },

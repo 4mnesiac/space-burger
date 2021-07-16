@@ -17,7 +17,7 @@ const ModalOverlay = ({ isOpen, onClick }) => {
       window.removeEventListener("click", handleOverlayClick);
     };
   }, [onClick]);
-
+  //TODO: можно улучшить
   return (
     <div className={isOpen ? `${overlayStyles.overlay} ${overlayStyles.overlay_opened}` : overlayStyles.overlay} ref={overlay}></div>
   );

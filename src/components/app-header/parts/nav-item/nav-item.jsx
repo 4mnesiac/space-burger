@@ -1,19 +1,21 @@
 import React from "react";
 import navItemStyles from './nav-item.module.css';
 import PropTypes from 'prop-types';
+import {NavLink} from 'react-router-dom';
 
-export default function NavItem ({text, children}) {
+export default function NavItem ({text, link, children}) {
     return (
-      <a href="/" className={navItemStyles.link}>
+      <NavLink to={link} className={navItemStyles.link} activeClassName={navItemStyles.active} exact>
         <span className={navItemStyles.icon}>
-          {children && children}
+          {children}
         </span>
         <p className={navItemStyles.text}>{text}</p>
-      </a>
+      </NavLink>
     );
   
 }
 NavItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  children: PropTypes.element
+  children: PropTypes.element.isRequired,
+  link: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 }

@@ -1,0 +1,38 @@
+.navmenu {
+    width: 320px;
+    composes: mr-15 from global;
+}
+
+.user_info {
+    composes: ml-15 from global;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    composes: text text_type_main-medium mb-20 from global;
+}
+
+.link {
+    text-decoration: none;
+    color: var(--text-inactive-color);
+}
+
+.active {
+    color: var(--text-primary-color);
+}
+
+.menu_item {
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.text {
+    composes: text text_type_main-default from global;
+    color: var(--text-inactive-color);
+    opacity: 0.4;
+}

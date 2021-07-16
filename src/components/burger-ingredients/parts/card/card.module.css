@@ -3,9 +3,11 @@
   max-height: 120px;
   composes: ml-4 mr-4 from global;
 }
+
 .image {
   width: 100%;
 }
+
 .item {
   display: flex;
   flex-direction: column;
@@ -13,13 +15,17 @@
   position: relative;
   composes: ml-6 mb-10 from global;
   cursor: pointer;
+  color: var(--text-primary-color);
+  text-decoration: none;
 }
+
 .price {
   display: flex;
   justify-content: center;
   align-items: center;
   composes: mt-1 mb-1 text_type_digits-medium from global;
 }
+
 .text {
   composes: text text_type_main-default from global;
   min-height: 48px;
