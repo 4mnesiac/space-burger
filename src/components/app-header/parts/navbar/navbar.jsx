@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 
 
 export default function NavBar() {
+
   const name = useSelector(store => store.auth.user.name);
   const localName = localStorage.getItem('userName');
     return (
@@ -31,7 +32,7 @@ export default function NavBar() {
            </li>
            <div className={navbarStyles.item_wrapper}>
             <li>
-              <NavItem text={name ? name : localName ? localName :'Вход'} link={(name ?? localName) ? '/profile' : '/login'}>
+              <NavItem text={name ? name : localName ? localName :'Личный кабинет'} link='/profile'>
                 <ProfileIcon />
               </NavItem>
             </li>

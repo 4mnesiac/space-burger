@@ -17,15 +17,16 @@ const AuthPage = () => {
     };
     const onSubmit = e => {
         e.preventDefault();
-        dispatch(login(form))
-        setForm({ email: '', password: '' })
+        if (form.email && form.password) {
+            dispatch(login(form))
+            setForm({ email: '', password: '' })
+        }
+
     }
     // возвращаем на предыдущую страницу, когда залогинимся
     if (isAuthorized) {
-        console.log('in name ', location.state)
-        const { from } = location.state || { from: { pathname: '/' } }
         return (
-            <Redirect to={from} />
+            <Redirect to={location.state?.from || '/'} />
         )
     }
 

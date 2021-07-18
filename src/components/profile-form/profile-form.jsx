@@ -16,11 +16,12 @@ const ProfileForm = () => {
     };
     const dispatch = useDispatch();
 
-
     const onSubmit = useCallback((e) => {
         e.preventDefault()
-        dispatch(updateUser(form))
-        setEdited(false)
+        if (form.name && form.email) {
+            dispatch(updateUser(form))
+            setEdited(false)
+        }
     }, [dispatch, form]);
 
     const onCancel = useCallback((e) => {
