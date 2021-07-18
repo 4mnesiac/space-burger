@@ -4,7 +4,7 @@ import { Redirect, Route, useLocation } from 'react-router-dom';
 
 // роут закрыт для авторизованных пользователей
 export default function ProtectedAuthorizedRoute({ children, ...rest }) {
-  const { name } = useSelector(store => store.auth.user);
+  const { isAuthorized } = useSelector(store => store.auth);
   const location = useLocation();
   const { from } = location.state || { from: { pathname: '/' } }
 
@@ -12,7 +12,7 @@ export default function ProtectedAuthorizedRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={() => {
-        return !name ? (
+        return !isAuthorized ? (
           children
         ) : (
           <Redirect to={from} />

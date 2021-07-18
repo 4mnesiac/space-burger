@@ -5,12 +5,12 @@ const checkResponse = (res) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
 }
 
-export const refreshExpiredTokenApi = async () => {
+export const refreshExpiredTokenApi = async (func, arg = null) => {
   try {
     const response = await fetch(`${API}/auth/token`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         token: localStorage.getItem('token'),
@@ -21,27 +21,26 @@ export const refreshExpiredTokenApi = async () => {
       setCookie('token', res.accessToken)
       localStorage.setItem('token', res.refreshToken)
       console.log('refresh success!')
-      return getUserApi();
-    } 
+      return func(arg)
+    } else {
+      throw new Error(res.message)
+    }
   } catch (error) {
-    console.log('Refresh error ' + error.message)
+    console.log('Refresh error: ' + error.message)
   }
 }
 
 export const getUserApi = () => {
   return fetch(`${API}/auth/user`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': getCookie('token'),
-      },
-    })
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: getCookie('token'),
+    },
+  })
     .then((response) => checkResponse(response))
-    .catch(err => {
-        if (err.message === 'jwt expired') {
-          return err;
-        } 
-        return Promise.reject(err.message)
+    .catch((err) => {
+      return Promise.reject(err)
     })
 }
 
@@ -56,32 +55,32 @@ export const logoutRequestApi = async () => {
         token: localStorage.getItem('token'),
       }),
     })
-    const res = await checkResponse(response)
-    return res;
+    return await checkResponse(response)
   } catch (error) {
-      console.log('Catched error ' + error.message)
-      throw new Error(error.message)
+    return Promise.reject(error)
   }
 }
 
-export const updateUserApi = async ({name, email, password}, dispatch) => {
-    try {
-        const response = await fetch(`${API}/auth/user`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'authorization': getCookie('token'),
-          },
-          body: JSON.stringify({
-            name, email, password
-          }),
-        })
-        const res = await checkResponse(response)
-        return res;
-      } catch (error) {
-          console.log('Update user failed ' + error.message)
-          return error;
-        }
+export const updateUserApi = async ({ name, email, password }) => {
+  try {
+    const response = await fetch(`${API}/auth/user`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: getCookie('token'),
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      }),
+    })
+    const res = await checkResponse(response)
+    return res
+  } catch (error) {
+    console.log('Update user failed: ', error)
+    return Promise.reject(error)
+  }
 }
 
 export const loginRequestApi = async (form) => {
@@ -93,11 +92,10 @@ export const loginRequestApi = async (form) => {
       },
       body: JSON.stringify(form),
     })
-    const res = await checkResponse(response)
-    return res;
+    return await checkResponse(response)
   } catch (error) {
     console.log(error.message)
-    throw new Error(error.message)
+    return Promise.reject(error.message)
   }
 }
 
@@ -111,10 +109,10 @@ export const registerRequestApi = async (form) => {
       body: JSON.stringify(form),
     })
     const res = await checkResponse(response)
-    return res;
+    return res
   } catch (error) {
     console.log('Catched error ' + error.message)
-    throw new Error(error.message)
+    return Promise.reject(error.message)
   }
 }
 
@@ -137,7 +135,7 @@ export const forgotPasswordApi = async (email) => {
     }
   } catch (error) {
     console.log('Catched error ' + error.message)
-    throw new Error(error.message)
+    return Promise.reject(error.message)
   }
 }
 
@@ -161,6 +159,6 @@ export const resetPasswordApi = async ({ password, token }) => {
     }
   } catch (error) {
     console.log('Catched error ' + error.message)
-    throw new Error(error.message)
+    return Promise.reject(error.message)
   }
 }

@@ -9,12 +9,13 @@ import { ProtectedRouteWithReset } from 'components/protected-reset-password/pro
 import ProtectedRoute from '../protected-route/protected-route';
 import Modal from 'components/modal/modal';
 import IngredientDetails from 'components/ingredient-details/ingredient-details';
-import { getIngredients } from 'services/slices/ingredientsSlice';
+import { getIngredients, resetIngredientToShow } from 'services/slices/ingredientsSlice';
 import FeedPage from 'components/feed/feed';
 import OrderInfo from 'components/order-info/order-info';
 import ProtectedAuthorizedRoute from 'components/protected-authorized-route/protected-authorized-route';
 import LoaderSpinner from 'components/loader/loader';
 import { mockFeed, mockOrders } from '../../utils/data';
+import { closeDetailsModal } from 'services/slices/modalSlice';
 
 
 export const API = 'https://norma.nomoreparties.space/api';
@@ -33,13 +34,14 @@ function App() {
   }, [dispatch])
   
   const closeModal = useCallback(() => {
+    dispatch(closeDetailsModal())
+    dispatch(resetIngredientToShow())
     history.goBack();
-  }, [history]);
-
+  }, [dispatch, history]);
 
   return (
     <>
-      {isLoading && <LoaderSpinner/>} 
+      {isLoading && <LoaderSpinner type='default'/>} 
       <AppHeader />
       <Switch location={pushLocation || location}>
         <Route path="/" exact>

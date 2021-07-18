@@ -3,10 +3,13 @@ import styles from './register.module.css';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'services/slices/authSlice';
+import { useLocation, Redirect } from 'react-router-dom';
 
 const RegisterPage = () => {
+    const { isAuthorized } = useSelector(store => store.auth)
+    const location = useLocation();
     const [isVisible, setVisible] = React.useState(false)
     const [form, setForm] = React.useState({ name: '', email: '', password: '' });
     const dispatch = useDispatch();
@@ -19,8 +22,13 @@ const RegisterPage = () => {
         dispatch(register(form))
         setForm({ name: '', email: '', password: '' })
     }
-
-
+    if (isAuthorized) {
+        console.log('in name ', location.state)
+        const { from } = location.state || { from: { pathname: '/' } }
+        return (
+            <Redirect to={from} />
+        )
+    }
     return (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={onSubmit}>

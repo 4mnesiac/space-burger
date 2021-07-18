@@ -6,13 +6,11 @@ import ProfileNav from 'components/profile-nav/profile-nav';
 import ProfileForm from 'components/profile-form/profile-form';
 
 const Profile = () => {
-    const { name } = useSelector(store => store.auth.user)
     const { isAuthorized } = useSelector(store => store.auth)
     const location = useLocation();
 
-    if (!isAuthorized || !name) {
-        console.log('in name ', location.state)
-        const { from } = location.state || { from: { pathname: '/' } }
+    if (!isAuthorized) {
+        const { from } = location.state || { from: { pathname: '/login' } }
         return (
             <Redirect to={from} />
         )

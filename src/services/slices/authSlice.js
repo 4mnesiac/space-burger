@@ -18,7 +18,7 @@ export const login = createAsyncThunk('auth/login', async (form) => {
     console.log('Login success, ' + res.user.name)
     return res
   } else {
-    throw new Error(res.message)
+    return Promise.reject(res.message)
   }
 })
 
@@ -30,7 +30,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
     localStorage.removeItem('userName')
     console.log('logout success')
   } else {
-    throw new Error(res.message)
+    return Promise.reject(res.message)
   }
 })
 
@@ -40,25 +40,27 @@ export const register = createAsyncThunk('auth/register', async (form) => {
     console.log('register success' + res.user)
     return res
   } else {
-    throw new Error(res.message)
+    return Promise.reject(res.message)
   }
 })
 
-export const updateUser = createAsyncThunk('auth/update-user', async (form, { dispatch }) => {
-  const res = await updateUserApi(form, dispatch)
-  if (res && res.success) {
-    localStorage.setItem('userName', res.user.name)
-    console.log('update success' + res)
-    return res.user
-  } else {
-    if (res.message === 'jwt expired') {
-      console.log('init refresh token')
-      const refresh = await refreshExpiredTokenApi()
-      if (refresh && refresh.success) {
-        return dispatch(updateUser(form, dispatch))
-      }
+export const updateUser = createAsyncThunk('auth/update-user', async (form) => {
+  try {
+    const res = await updateUserApi(form)
+    debugger
+    if (res && res.success) {
+      localStorage.setItem('userName', res.user.name)
+      console.log('update success ', res)
+      return res.user
     }
-    throw new Error(res.message)
+    throw new Error(res)
+  } catch (error) {
+    debugger
+    if (error.message === 'jwt expired') {
+      return await refreshExpiredTokenApi(updateUserApi, form)
+    }
+    console.log(`Catched and hadled error: "${error}"`)
+    return Promise.reject(error.message)
   }
 })
 
@@ -66,17 +68,17 @@ export const getUser = createAsyncThunk('auth/getUser', async () => {
   try {
     const response = await getUserApi()
     if (response && response.success) {
+      console.log(response)
+      localStorage.setItem('userName', response.user.name)
       return response
     }
-    if (!response.success) {
-      throw new Error(response.message)
-    }
+    throw new Error(response.message)
   } catch (error) {
-    if (!error.success && error.message === 'jwt expired') {
+    if (error.message === 'jwt expired') {
       console.log(error.message)
-      const res = await refreshExpiredTokenApi()
-      return res
-    } 
+      return await refreshExpiredTokenApi(getUserApi, null)
+    }
+    console.log(`Catched and hadled error: "${error.message}"`)
     return Promise.reject(error.message)
   }
 })
@@ -147,7 +149,7 @@ export const authSlice = createSlice({
       .addCase(getUser.rejected, (state) => {
         state.isLoading = false
         state.hasError = true
-        state.user = initialState.user
+        // state.user = initialState.user
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.user = action.payload.user

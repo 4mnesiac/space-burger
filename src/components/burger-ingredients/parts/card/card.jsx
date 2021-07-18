@@ -21,7 +21,7 @@ const Card = ({ item, onClick }) => {
     return (
         <Link className={cardStyles.item} to={{
             pathname: `/ingredients/${item._id}`,
-            state: { pushLocation: location }
+            state: { from: location.pathname, pushLocation: location }
         }}>
             <article key={item._id} onClick={() => onClick(item)} ref={dragRef}>
                 {counts[item._id] > 0 && <Counter count={counts[item._id]} />}

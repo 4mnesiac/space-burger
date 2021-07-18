@@ -10,7 +10,7 @@ const Bun = ({ position }) => {
     const { bun } = useSelector(store => store.cart.sortedCart);
     const [isEmpty, setIsEmpty] = useState(true);
     useEffect(() => {
-        if (bun._id) {
+        if (bun) {
             setIsEmpty(false)
         } else {
             setIsEmpty(true)
@@ -24,9 +24,9 @@ const Bun = ({ position }) => {
                     <ConstructorElement
                         type={position}
                         isLocked={true}
-                        text={bun.name}
-                        price={bun.price}
-                        thumbnail={bun.image}
+                        text={bun?.name}
+                        price={bun?.price}
+                        thumbnail={bun?.image}
                     />)
                 : (
                     <ConstructorElement

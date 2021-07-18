@@ -23,6 +23,8 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 
-## Latest Version
+## Versions
 
 3.0.1 - добавлены экраны авторизации, регистрации, восстановления пароля, просмотров заказов. Реализован роутинг, авторизация.
+
+3.1.1 - доработан функционал оформления заказа, добавлены незначительные улучшения UX, улучшена функциональность запросов к API.

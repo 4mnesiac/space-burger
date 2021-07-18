@@ -8,8 +8,8 @@ import { logout } from 'services/slices/authSlice';
 const ProfileNav = ({ text }) => {
     const dispatch = useDispatch();
     const history = useHistory()
-    const onClick = () => {
-        dispatch(logout())
+    const onClick = async () => {
+        await dispatch(logout())
         history.replace({ pathname: '/login' })
     }
 

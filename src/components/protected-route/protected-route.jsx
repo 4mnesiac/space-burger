@@ -4,13 +4,13 @@ import { Route, Redirect } from 'react-router-dom';
 
 // роут только для авторизованных пользователей
 const ProtectedRoute = ({ children, ...rest }) => {
-    const { name } = useSelector(store => store.auth.user);
+    const { isAuthorized } = useSelector(store => store.auth);
 
     return (
         <Route
             {...rest}
             render={({ location }) => {
-                return name ? (
+                return isAuthorized ? (
                     children
                 ) : (
                     <Redirect to={{
