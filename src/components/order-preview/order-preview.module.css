@@ -1,0 +1,15 @@
+.order_list {
+  display: flex;
+  flex-direction: column;
+  width: 584px;
+  max-height: 70vh;
+  composes: pr-2 from global;
+}
+
+.list_item {
+  composes: mb-4 from global;
+}
+
+.link {
+  text-decoration: none;
+}

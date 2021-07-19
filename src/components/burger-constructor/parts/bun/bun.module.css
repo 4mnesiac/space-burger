@@ -4,12 +4,15 @@
     /* gap: 10px; */
     composes: pl-8 pr-6 from global;
 }
+
 .bun_empty :global(.constructor-element__image) {
     visibility: hidden;
 }
+
 .bun_empty :global(.constructor-element__price) {
     visibility: hidden;
-} 
+}
+
 .bun_empty :global(.constructor-element__action) {
     visibility: hidden;
-} 
+}

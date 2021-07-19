@@ -9,6 +9,7 @@
     align-items: center;
     display: none;
 }
+
 .overlay_opened {
     display: flex;
 }

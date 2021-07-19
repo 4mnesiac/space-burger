@@ -5,22 +5,18 @@
   line-height: 24px;
   text-decoration: none;
   color: #f2f2f3;
-  composes: ml-2 mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 from global;
+  composes: ml-2 mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 text text_type_main-default from global;
+  color: var(--text-inactive-color);
 }
+
 .link:first-of-type {
   margin-left: 0;
 }
-.text {
-  composes: text text_type_main-default from global;
-  color: var(--text-inactive-color);
+
+.active {
+  color: var(--text-primary-color)
 }
-.text:hover,
-.text:active {
-  color: var(--text-primary-color);
-}
-.text_active {
-  color: var(--text-primary-color);
-}
+
 .icon {
   composes: mr-2 from global;
   display: flex;

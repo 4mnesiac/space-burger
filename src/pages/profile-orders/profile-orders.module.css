@@ -1,0 +1,9 @@
+.wrapper {
+    display: flex;
+    width: 1280px;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    composes: pt-30 from global;
+    }   
+    

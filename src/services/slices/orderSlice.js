@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API } from "components/app/app";
-
+import { getCookie } from 'utils/cookie'
 
 export const setOrder = createAsyncThunk(
     'order/setOrder',
@@ -10,7 +10,8 @@ export const setOrder = createAsyncThunk(
                 method: 'POST',
                 mode: 'cors',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': getCookie('token'),
                 },
                 body: JSON.stringify({
                     ingredients: ids

@@ -1,0 +1,22 @@
+.scroller {
+    max-height: 70vh;
+    overflow-y: auto;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+    overflow-x: hidden;
+    padding-left: 0;
+    composes: pr-2 from global;
+    list-style: none;
+}
+
+.scroller::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scroller::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}

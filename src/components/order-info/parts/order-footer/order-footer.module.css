@@ -1,0 +1,14 @@
+.footer {
+    composes: pt-10 from global;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper {
+    composes: text from global;
+}
+
+.time {
+    composes: text_type_main-default from global;
+    color: var(--text-inactive-color);
+}

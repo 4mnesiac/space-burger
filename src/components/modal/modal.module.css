@@ -9,13 +9,15 @@
     flex-direction: column;
     position: relative;
     z-index: 1;
-    overflow:hidden;
+    overflow: hidden;
 }
+
 .container {
-    position: absolute; 
-    top: 12%; 
-    left: 30%; 
+    position: absolute;
+    top: 12%;
+    left: 30%;
 }
+
 .heading {
     margin: 0;
     composes: text text_type_main-large pt-10 pl-10 from global;
@@ -23,7 +25,8 @@
     display: flex;
     align-items: center;
     align-self: flex-start;
-  }
+}
+
 .close {
     composes: mt-15 mr-10 from global;
     cursor: pointer;
