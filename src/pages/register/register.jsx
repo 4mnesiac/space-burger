@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'services/slices/authSlice';
-import { useLocation, Redirect } from 'react-router-dom';
+import { useLocation, Redirect, useHistory } from 'react-router-dom';
 
 const RegisterPage = () => {
-    const { isAuthorized } = useSelector(store => store.auth)
+    const { isAuthorized, hasError, isLoading } = useSelector(store => store.auth)
     const location = useLocation();
+    const history = useHistory()
+
     const [isVisible, setVisible] = React.useState(false)
     const [form, setForm] = React.useState({ name: '', email: '', password: '' });
     const dispatch = useDispatch();
@@ -17,10 +19,11 @@ const RegisterPage = () => {
     const onChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
-        dispatch(register(form))
+        await dispatch(register(form))
         setForm({ name: '', email: '', password: '' })
+        return history.replace('/login');
     }
     if (isAuthorized) {
         console.log('in name ', location.state)

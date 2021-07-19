@@ -32,7 +32,7 @@ export default function NavBar() {
            </li>
            <div className={navbarStyles.item_wrapper}>
             <li>
-              <NavItem text={name ? name : localName ? localName :'Личный кабинет'} link='/profile'>
+              <NavItem text={name ? name : 'Личный кабинет'} link='/profile'>
                 <ProfileIcon />
               </NavItem>
             </li>
