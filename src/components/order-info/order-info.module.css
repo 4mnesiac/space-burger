@@ -1,18 +1,12 @@
 .card {
-  composes: pt-20 from global;
   max-width: 640px;
   margin: 0 auto;
   color: #f2f2f3;
 }
 
-.ingredients_title {
-  composes: text text_type_main-medium mb-6 from global;
-}
-
-.list {
-  composes: list-reset pr-6 from global;
-  list-style: none;
-  padding-left: 0;
+.id {
+  text-align: center;
+  composes: text_type_digits-default text mb-10 mt-20 from global;
 }
 
 .item {

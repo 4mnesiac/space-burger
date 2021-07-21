@@ -1,10 +1,6 @@
 .header {
-    composes: pb-15 from global;
-}
+    composes: pb-15 pt-5 from global;
 
-.id {
-    text-align: center;
-    composes: text_type_digits-default text mb-10 from global;
 }
 
 .title {

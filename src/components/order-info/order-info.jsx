@@ -1,24 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './order-info.module.css';
-import ScrollContainer from 'components/scroll-container/scroll-container';
-import { OrderHeader, OrderItem, OrderFooter } from './parts';
+import { useHistory } from 'react-router-dom'
+import { OrderTitle, OrderFooter, OrderContent } from './parts';
 
-const OrderInfo = ({ orderData }) => {
+const OrderInfo = ({ orderData, isModal = false }) => {
     const { id, name, datetime, status, price, ingredients } = orderData;
+    // const history = useHistory()
+    // let pushLocation = history.action === 'PUSH';
+
     return (
         <article className={styles.card}>
-            <OrderHeader id={id} name={name} status={status} />
-            <h3 className={styles.ingredients_title}>Состав:</h3>
-            <ScrollContainer height='300px'>
-                <ul className={styles.list}>
-                    {ingredients.map((item, index) => (
-                        <li className={styles.item} key={index}>
-                            <OrderItem ingredient={item} price={price} />
-                        </li>
-                    ))}
-                </ul>
-            </ScrollContainer>
+            {!isModal && <p className={styles.id}>#{id}</p>}
+            <OrderTitle id={id} name={name} status={status} />
+            <OrderContent ingredients={ingredients} price={price} />
             <OrderFooter datetime={datetime} price={price} />
         </article>
     );

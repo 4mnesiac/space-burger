@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './feed.module.css';
 import FeedCard from '../feed-card/feed-card';
-import { Link, useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { OrderDashboard } from 'components/order-dashboard/order-dashboard';
 import ScrollContainer from 'components/scroll-container/scroll-container';
 
 export default function FeedPage({ feedData, orderData }) {
-    const { url } = useRouteMatch();
+ 
 
     return (
         <section className={styles.wrapper}>
@@ -16,9 +15,7 @@ export default function FeedPage({ feedData, orderData }) {
                 <ScrollContainer type='list' height='680px'>
                     {feedData.map((item, index) => (
                         <li className={styles.list_item} key={index}>
-                            <Link to={`${url}/${item.id}`} className={styles.link}>
-                                <FeedCard item={item} />
-                            </Link>
+                            <FeedCard item={item} />
                         </li>
                     ))}
                 </ScrollContainer>

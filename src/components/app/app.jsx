@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import {IngredientPage, ProfileOrders, HomePage, AuthPage, RegisterPage, ForgotPassword, ResetPassword,Profile, NotFound404} from '../../pages';
+import { IngredientPage, ProfileOrders, HomePage, AuthPage, RegisterPage, ForgotPassword, ResetPassword, Profile, NotFound404 } from '../../pages';
 import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import AppHeader from 'components/app-header/app-header';
 import { useEffect } from 'react';
@@ -9,13 +9,13 @@ import { ProtectedRouteWithReset } from 'components/protected-reset-password/pro
 import ProtectedRoute from '../protected-route/protected-route';
 import Modal from 'components/modal/modal';
 import IngredientDetails from 'components/ingredient-details/ingredient-details';
-import { getIngredients, resetIngredientToShow } from 'services/slices/ingredientsSlice';
+import { getIngredients, resetIngredientToShow, setIngredientToShow } from 'services/slices/ingredientsSlice';
 import FeedPage from 'components/feed/feed';
 import OrderInfo from 'components/order-info/order-info';
 import ProtectedAuthorizedRoute from 'components/protected-authorized-route/protected-authorized-route';
 import LoaderSpinner from 'components/loader/loader';
 import { mockFeed, mockOrders } from '../../utils/data';
-import { closeDetailsModal } from 'services/slices/modalSlice';
+import { closeDetailsModal, openDetailsModal } from 'services/slices/modalSlice';
 
 
 export const API = 'https://norma.nomoreparties.space/api';
@@ -24,7 +24,7 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
-  const {isLoading} = useSelector(store => store.auth)
+  const { isLoading } = useSelector(store => store.auth)
 
   let pushLocation = history.action === 'PUSH' && location.state && location.state.pushLocation;
 
@@ -32,28 +32,31 @@ function App() {
     dispatch(getIngredients())
     dispatch(getUser())
   }, [dispatch])
-  
+
   const closeModal = useCallback(() => {
     dispatch(closeDetailsModal())
     dispatch(resetIngredientToShow())
     history.goBack();
   }, [dispatch, history]);
+  const handleOpenModal = (item) => {
+    dispatch(setIngredientToShow(item))
+    dispatch(openDetailsModal())
+  }
 
   return (
     <>
-      {isLoading && <LoaderSpinner type='default'/>} 
+      {isLoading && <LoaderSpinner type='default' />}
       <AppHeader />
       <Switch location={pushLocation || location}>
         <Route path="/" exact>
           <HomePage />
         </Route>
         <Route path='/feed' exact={true}>
-          <FeedPage feedData={mockFeed} orderData={mockOrders}/>
+          <FeedPage feedData={mockFeed} orderData={mockOrders} />
         </Route>
         <Route path='/feed/:id' exact={true}>
-          <OrderInfo orderData={mockFeed[0]}/>
+          <OrderInfo orderData={mockFeed[0]} />
         </Route>
-
         <ProtectedAuthorizedRoute path="/login" exact>
           <AuthPage />
         </ProtectedAuthorizedRoute>
@@ -75,7 +78,7 @@ function App() {
           <ProfileOrders />
         </ProtectedRoute>
         <ProtectedRoute path="/profile/orders/:id" exact>
-          <OrderInfo orderData={mockFeed[1]}/>
+          <OrderInfo orderData={mockFeed[1]} />
         </ProtectedRoute>
 
         <Route path='/ingredients/:id' exact>
@@ -86,14 +89,28 @@ function App() {
         </Route>
       </Switch>
       {pushLocation && (
-        <Route path='/ingredients/:id' >
-          <Modal name="Details" title='Детали ингредиента' onClose={closeModal}>
-            <IngredientDetails />
+          <Route path='/ingredients/:id' >
+            <Modal name="Details" title='Детали ингредиента' onClose={closeModal}>
+              <IngredientDetails />
+            </Modal>
+          </Route>
+      )}
+      {pushLocation && (
+        <Route path='/feed/:id'>
+          <Modal name="Details" title={`#${mockFeed[0].id}`} onClose={closeModal} titleType={true}>
+            <OrderInfo orderData={mockFeed[0]} isModal={true}/>
           </Modal>
         </Route>
-      )}
-    </>
-  );
-}
+        )}
+        {pushLocation && (
+        <Route path='/profile/orders/:id'>
+          <Modal name="Details" title={`#${mockFeed[1].id}`} onClose={closeModal} titleType={true}>
+            <OrderInfo orderData={mockFeed[1]} isModal={true}/>
+          </Modal>
+        </Route>
+        )}
+  </>
+  )}
 
 export default App;
+

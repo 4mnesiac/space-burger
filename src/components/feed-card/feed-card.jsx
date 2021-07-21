@@ -4,10 +4,17 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import Price from 'components/price/price';
 import PropTypes from 'prop-types';
+import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { openDetailsModal } from 'services/slices/modalSlice';
 
 const FeedCard = ({ item }) => {
   const { id, datetime, name, status, price, ingredients } = item;
   const [previews, setPreviews] = useState([])
+  const { url } = useRouteMatch();
+  const dispatch = useDispatch();
+  const location = useLocation()
+
 
   // возможны баги
   useEffect(() => {
@@ -27,36 +34,41 @@ const FeedCard = ({ item }) => {
       if (others !== null) break;
     }
   }, [ingredients])
+  const handle = () => {
+    dispatch(openDetailsModal())
+  }
+
 
   return (
-    <article className={styles.card}>
-      <header className={styles.header}>
-        <span className={styles.id}>#{id}</span>
-        <time dateTime={datetime} className={styles.time}>Сегодня, 16:20 i-GMT+3</time>
-      </header>
-      <h3 className={styles.title}>{name}</h3>
-      <p className={styles.status}>{status}</p>
-      <div className={styles.content}>
-        <ul className={styles.ingredients}>
-          {
-            previews.map((item) => (
-              <li key={nanoid()} style={{ zIndex: item.zIndex }}>
-                <div className={styles.preview}>
-                  {item.others && <span className={styles.others}>+{item.others}</span>}
-                  <img className={styles.image} src={item.ingredient.image} alt={item.ingredient.name} />
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-        <Price>{price}</Price>
-      </div>
-    </article>
-
+    <Link to={{ pathname: `${url}/${item.id}`, state: { from: location.pathname, pushLocation: location } }} className={styles.link} onClick={handle}>
+      <article className={styles.card} >
+        <header className={styles.header}>
+          <span className={styles.id}>#{id}</span>
+          <time dateTime={datetime} className={styles.time}>Сегодня, 16:20 i-GMT+3</time>
+        </header>
+        <h3 className={styles.title}>{name}</h3>
+        <p className={styles.status}>{status}</p>
+        <div className={styles.content}>
+          <ul className={styles.ingredients}>
+            {
+              previews.map((item) => (
+                <li key={nanoid()} style={{ zIndex: item.zIndex }}>
+                  <div className={styles.preview}>
+                    {item.others && <span className={styles.others}>+{item.others}</span>}
+                    <img className={styles.image} src={item.ingredient.image} alt={item.ingredient.name} />
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+          <Price>{price}</Price>
+        </div>
+      </article>
+    </Link>
   );
 }
 
-export default FeedCard;
+export default React.memo(FeedCard);
 
 FeedCard.propTypes = {
   item: PropTypes.shape({
