@@ -7,11 +7,11 @@ const OrderItem = ({ ingredient, price }) => {
         <article className={styles.ingredient}>
             <div className={styles.ingredient}>
                 <picture className={styles.picture}>
-                    <img src={ingredient.image} alt={ingredient.name} />
+                    <img src={ingredient.image_mobile} alt={ingredient.name} />
                 </picture>
             </div>
             <h4 className={styles.ingredient_name}>{ingredient.name}</h4>
-            <span className={styles.price}>{2}&nbsp;x&nbsp;{price}<CurrencyIcon /></span>
+            <span className={styles.price}>{1}&nbsp;x&nbsp;{price}<CurrencyIcon /></span>
         </article>
     );
 }
@@ -21,7 +21,7 @@ export default OrderItem;
 OrderItem.propTypes = {
   ingredient: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
+    image_mobile: PropTypes.string.isRequired
   }).isRequired,
   price: PropTypes.number.isRequired
 }

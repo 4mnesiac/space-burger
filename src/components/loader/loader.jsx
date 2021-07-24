@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Loader from "react-loader-spinner";
 import s from './loader.module.css'
 
@@ -24,5 +25,9 @@ const LoaderSpinner = ({type = 'default'}) => {
             
         </>
     )
+}
+
+LoaderSpinner.propTypes = {
+  type: PropTypes.string
 }
 export default LoaderSpinner;

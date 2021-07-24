@@ -6,6 +6,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'services/slices/authSlice';
 import { useLocation, Redirect, useHistory } from 'react-router-dom';
+import LoaderSpinner from 'components/loader/loader';
 
 const RegisterPage = () => {
     const { isAuthorized, hasError, isLoading } = useSelector(store => store.auth)
@@ -33,6 +34,9 @@ const RegisterPage = () => {
         )
     }
     return (
+        <>
+        {isLoading && <LoaderSpinner/>}
+        {!isLoading && !hasError (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={onSubmit}>
                 <h1 className={styles.heading}>Регистрация</h1>
@@ -73,7 +77,8 @@ const RegisterPage = () => {
                 </Link>
             </p>
         </div>
-
+        )}
+    </>
     );
 }
 

@@ -5,27 +5,32 @@ import { useEffect } from 'react';
 import Price from 'components/price/price';
 import PropTypes from 'prop-types';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openDetailsModal } from 'services/slices/modalSlice';
+import { formatOrderDate } from 'utils/formatDate';
+import { formatData } from 'utils/formatData';
+import { setOrderToShow } from 'services/slices/orderSlice';
+
 
 const FeedCard = ({ item }) => {
-  const { id, datetime, name, status, price, ingredients } = item;
+  const ingredientList = useSelector(store => store.ingredients.ingredients)
+  const { _id, number, createdAt, name, status, ingredients } = item;
   const [previews, setPreviews] = useState([])
   const { url } = useRouteMatch();
   const dispatch = useDispatch();
   const location = useLocation()
-
+  const formattedIngredients = formatData(ingredients, ingredientList);
 
   // возможны баги
   useEffect(() => {
-    for (let index = 0; index < ingredients.length; index++) {
-      const ingredient = ingredients[index];
+    for (let index = 0; index < formattedIngredients.length; index++) {
+      const ingredient = formattedIngredients[index];
       let others = null;
       let zIndex = null;
       if (index === 5) {
-        others = ingredients.length - 5;
+        others = formattedIngredients.length - 5;
       }
-      zIndex = ingredients.length - index;
+      zIndex = formattedIngredients.length - index;
 
       setPreviews(prev => [
         ...prev,
@@ -33,21 +38,32 @@ const FeedCard = ({ item }) => {
       ])
       if (others !== null) break;
     }
-  }, [ingredients])
-  const handle = () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  const handleOpen = () => {
+    dispatch(setOrderToShow(item))
     dispatch(openDetailsModal())
   }
 
+  const color = status === 'done' ? 'var(--colors-interface-success)' : status === 'canceled' ? 'var(--colors-interface-error)' : 'inherit';
+
+  const date = formatOrderDate(createdAt)
+  const price = formattedIngredients && ingredients &&
+    formattedIngredients.reduce(function (prevValue, item) {
+      return prevValue + item.price;
+    }, 0);
+
 
   return (
-    <Link to={{ pathname: `${url}/${item.id}`, state: { from: location.pathname, pushLocation: location } }} className={styles.link} onClick={handle}>
+    <Link to={{ pathname: `${url}/${_id}`, state: { from: location.pathname, pushLocation: location } }} className={styles.link} onClick={handleOpen}>
       <article className={styles.card} >
         <header className={styles.header}>
-          <span className={styles.id}>#{id}</span>
-          <time dateTime={datetime} className={styles.time}>Сегодня, 16:20 i-GMT+3</time>
+          <span className={styles.id}>#{number}</span>
+          <time className={styles.time}>{date}</time>
         </header>
         <h3 className={styles.title}>{name}</h3>
-        <p className={styles.status}>{status}</p>
+        <p className={styles.status} style={{ color }}>{status === 'done' ? 'Выполнен' : status === 'canceled' ? 'Отменен' : 'Выполняется'}</p>
         <div className={styles.content}>
           <ul className={styles.ingredients}>
             {
@@ -55,7 +71,7 @@ const FeedCard = ({ item }) => {
                 <li key={nanoid()} style={{ zIndex: item.zIndex }}>
                   <div className={styles.preview}>
                     {item.others && <span className={styles.others}>+{item.others}</span>}
-                    <img className={styles.image} src={item.ingredient.image} alt={item.ingredient.name} />
+                    <img className={styles.image} src={item.ingredient.image_mobile} alt={item.ingredient.name} />
                   </div>
                 </li>
               ))
@@ -68,21 +84,16 @@ const FeedCard = ({ item }) => {
   );
 }
 
-export default React.memo(FeedCard);
+export default FeedCard;
 
 FeedCard.propTypes = {
   item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    datetime: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    ingredients: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-      }).isRequired
-    ).isRequired
+    ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
   }).isRequired
 }
 

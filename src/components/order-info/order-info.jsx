@@ -1,37 +1,58 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import styles from './order-info.module.css';
-import { useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { OrderTitle, OrderFooter, OrderContent } from './parts';
+import { useDispatch, useSelector } from 'react-redux';
+import { formatOrderDate } from 'utils/formatDate';
+import { getIngredients } from 'services/slices/ingredientsSlice';
+import LoaderSpinner from 'components/loader/loader';
+import { getOrderByIdApi } from 'services/api';
 
-const OrderInfo = ({ orderData, isModal = false }) => {
-    const { id, name, datetime, status, price, ingredients } = orderData;
-    // const history = useHistory()
-    // let pushLocation = history.action === 'PUSH';
+const OrderInfo = () => {
+    const [order, setOrder] = useState()
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    const { ingredients } = useSelector(store => store.ingredients)
+
+    const orderIngredients = ingredients && order &&
+        order.ingredients.map((id) =>
+            ingredients.find((item) => item._id === id)
+        );
+    const date = order && formatOrderDate(order.createdAt)
+
+    const orderPrice =
+        orderIngredients &&
+        ingredients &&
+        orderIngredients.reduce(function (prevValue, item) {
+            return prevValue + item.price;
+        }, 0);
+
+    React.useEffect(() => {
+        dispatch(getIngredients());
+        getOrderByIdApi(id)
+            .then((res) => {
+                // с сервера приходит одно и то же значение, независимо откуда я выполняю запрос и с каким id
+                setOrder(res.orders[0]);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [id, dispatch]);
 
     return (
-        <article className={styles.card}>
-            {!isModal && <p className={styles.id}>#{id}</p>}
-            <OrderTitle id={id} name={name} status={status} />
-            <OrderContent ingredients={ingredients} price={price} />
-            <OrderFooter datetime={datetime} price={price} />
-        </article>
+        <>
+            {order ? (
+                <article className={styles.card}>
+                    <p className={styles.id}>#{order.number}</p>
+                    <OrderTitle id={order._id} name={order.name} status={order.status} />
+                    <OrderContent ingredients={orderIngredients} />
+                    <OrderFooter datetime={date} price={orderPrice} />
+                </article>
+            ) : (
+                <LoaderSpinner />
+            )}
+        </>
     );
 };
 
 export default OrderInfo;
-
-OrderInfo.propTypes = {
-    orderData: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        datetime: PropTypes.string.isRequired,
-        status: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        ingredients: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.string.isRequired,
-                image: PropTypes.string.isRequired,
-            })).isRequired,
-    }).isRequired
-};

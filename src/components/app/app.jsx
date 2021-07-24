@@ -9,14 +9,13 @@ import { ProtectedRouteWithReset } from 'components/protected-reset-password/pro
 import ProtectedRoute from '../protected-route/protected-route';
 import Modal from 'components/modal/modal';
 import IngredientDetails from 'components/ingredient-details/ingredient-details';
-import { getIngredients, resetIngredientToShow, setIngredientToShow } from 'services/slices/ingredientsSlice';
+import { getIngredients, resetIngredientToShow } from 'services/slices/ingredientsSlice';
 import FeedPage from 'components/feed/feed';
 import OrderInfo from 'components/order-info/order-info';
 import ProtectedAuthorizedRoute from 'components/protected-authorized-route/protected-authorized-route';
 import LoaderSpinner from 'components/loader/loader';
-import { mockFeed, mockOrders } from '../../utils/data';
-import { closeDetailsModal, openDetailsModal } from 'services/slices/modalSlice';
-
+import { closeDetailsModal } from 'services/slices/modalSlice';
+import OrderItemDetails from 'components/order-item-details/order-item-details';
 
 export const API = 'https://norma.nomoreparties.space/api';
 
@@ -35,13 +34,10 @@ function App() {
 
   const closeModal = useCallback(() => {
     dispatch(closeDetailsModal())
-    dispatch(resetIngredientToShow())
     history.goBack();
+    dispatch(resetIngredientToShow())
+    // dispatch(resetOrderToShow())
   }, [dispatch, history]);
-  const handleOpenModal = (item) => {
-    dispatch(setIngredientToShow(item))
-    dispatch(openDetailsModal())
-  }
 
   return (
     <>
@@ -51,12 +47,13 @@ function App() {
         <Route path="/" exact>
           <HomePage />
         </Route>
-        <Route path='/feed' exact={true}>
-          <FeedPage feedData={mockFeed} orderData={mockOrders} />
+        <Route path='/feed' exact>
+          <FeedPage />
         </Route>
-        <Route path='/feed/:id' exact={true}>
-          <OrderInfo orderData={mockFeed[0]} />
+        <Route path='/feed/:id' exact>
+          <OrderInfo/>
         </Route>
+
         <ProtectedAuthorizedRoute path="/login" exact>
           <AuthPage />
         </ProtectedAuthorizedRoute>
@@ -78,7 +75,7 @@ function App() {
           <ProfileOrders />
         </ProtectedRoute>
         <ProtectedRoute path="/profile/orders/:id" exact>
-          <OrderInfo orderData={mockFeed[1]} />
+          <OrderInfo />
         </ProtectedRoute>
 
         <Route path='/ingredients/:id' exact>
@@ -97,16 +94,12 @@ function App() {
       )}
       {pushLocation && (
         <Route path='/feed/:id'>
-          <Modal name="Details" title={`#${mockFeed[0].id}`} onClose={closeModal} titleType={true}>
-            <OrderInfo orderData={mockFeed[0]} isModal={true}/>
-          </Modal>
+            <OrderItemDetails onClose={closeModal}/>
         </Route>
         )}
         {pushLocation && (
         <Route path='/profile/orders/:id'>
-          <Modal name="Details" title={`#${mockFeed[1].id}`} onClose={closeModal} titleType={true}>
-            <OrderInfo orderData={mockFeed[1]} isModal={true}/>
-          </Modal>
+            <OrderItemDetails onClose={closeModal}/>
         </Route>
         )}
   </>

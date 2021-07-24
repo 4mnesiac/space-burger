@@ -1,11 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './order-dashboard.module.css';
+import { useSelector } from 'react-redux';
 
-export const OrderDashboard = ({ orderData }) => {
+export const OrderDashboard = () => {
 
-    const readyOrders = orderData.filter(item => item.status === "ready");
-    const inProgressOrders = orderData.filter(item => item.status === "inprogress");
+    const {
+        orders,
+        total,
+        totalToday,
+    } = useSelector((state) => state.feed);
+
+    const readyOrders = orders && orders.filter(item => item.status === "done").slice(0,21);
+    const inProgressOrders = orders && orders.filter(item => item.status !== "done").slice(0,21);
 
     return (
         <section className={styles.dashboard}>
@@ -15,7 +21,7 @@ export const OrderDashboard = ({ orderData }) => {
                         <header className={styles.row__title}>Готовы: </header>
                         <ul className={styles.list}>
                             {readyOrders.map((item) => (
-                                <li key={item.id} className={styles.ready}>{item.id}</li>
+                                <li key={item._id} className={styles.ready}>{item.number}</li>
                             ))}
                         </ul>
                     </div>
@@ -23,33 +29,21 @@ export const OrderDashboard = ({ orderData }) => {
                         <header className={styles.row__title}>В работе: </header>
                         <ul className={styles.list}>
                             {inProgressOrders.map(item => (
-                                <li key={item.id} className={styles.inprogress}>{item.id}</li>
+                                <li key={item._id} className={styles.inprogress}>{item.number}</li>
                             ))}
                         </ul>
                     </div>
                 </div>
                 <div className={styles.row}>
                     <header className={styles.row__title}>Выполнено за все время:</header>
-                    <p className={styles.row__content}>26435</p>
+                    <p className={styles.row__content}>{total}</p>
                 </div>
                 <div className={styles.row}>
                     <header className={styles.row__title}>Выполнено за сегодня:</header>
-                    <p className={styles.row__content}>123</p>
+                    <p className={styles.row__content}>{totalToday}</p>
                 </div>
             </article>
         </section>
+
     );
 };
-
-OrderDashboard.propTypes = {
-    orderData: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            status: PropTypes.string.isRequired,
-            timestamp: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            ingredientIDs: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-            price: PropTypes.number.isRequired,
-        }).isRequired
-    ).isRequired
-}

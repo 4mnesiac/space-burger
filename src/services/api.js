@@ -162,3 +162,92 @@ export const resetPasswordApi = async ({ password, token }) => {
     return Promise.reject(error.message)
   }
 }
+
+export const getAllOrdersApi = async () => {
+  try {
+    let response = await fetch(`${API}/orders/all`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: getCookie('token'),
+      },
+    })
+    const res = await checkResponse(response)
+    if (res && res.success) {
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+  } catch (error) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
+  }
+}
+
+export const getUserOrdersApi = async () => {
+  try {
+    let response = await fetch(`${API}/orders`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: getCookie('token'),
+      },
+    })
+    const res = await checkResponse(response)
+    if (res && res.success) {
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+  } catch (error) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
+  }
+}
+
+export const sendOrderApi = async (ids) => {
+  try {
+    const response = await fetch(`${API}/orders`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: getCookie('token'),
+      },
+      body: JSON.stringify({
+        ingredients: ids,
+      }),
+    })
+    const res = await checkResponse(response)
+    if (res && res.success) {
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+  } catch (error) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
+  }
+}
+
+export const getOrderByIdApi = async (id) => {
+  try {
+    let response = await fetch(`${API}/orders/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: getCookie('token'),
+      },
+    })
+    const res = await checkResponse(response)
+    if (res && res.success) {
+      console.log(res)
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+  } catch (error) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
+  }
+}

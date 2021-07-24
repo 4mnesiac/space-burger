@@ -14,7 +14,7 @@ const Price = ({ children, iconType, size = 'default' }) => {
 export default Price;
 
 Price.propTypes = {
-    children: PropTypes.number.isRequired,
+    children: PropTypes.number.isRequired || PropTypes.string.isRequired,
     iconType: PropTypes.string,
     size: PropTypes.string
 }
