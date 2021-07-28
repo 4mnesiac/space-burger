@@ -1,22 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import ingredientsReducer from "./slices/ingredientsSlice";
-import orderReducer from "./slices/orderSlice";
-import cartReducer from "./slices/cartSlice";
-import modalReducer from "./slices/modalSlice";
-import authReducer from './slices/authSlice';
-import passwordReducer from './slices/passwordSlice';
+import { configureStore } from '@reduxjs/toolkit'
+import rootReducer from './slices'
+import socketMiddleware from './web-socket/middleware/feed-socket-middleware'
 
 const store = configureStore({
-  reducer: {
-    ingredients: ingredientsReducer,
-    order: orderReducer,
-    cart: cartReducer,
-    modal: modalReducer,
-    auth: authReducer,
-    password: passwordReducer
-  },
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(socketMiddleware()),
   devTools: true,
-});
+})
 
-export default store;
-
+export default store

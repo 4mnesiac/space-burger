@@ -7,9 +7,9 @@ const OrderFooter = ({ datetime, price }) => {
     return (
         <footer className={styles.footer}>
             <p className={styles.wrapper}>
-                <time dateTime={datetime} className={styles.time}>Вчера, 17:41 i-GMT+5</time>
+                <time dateTime={datetime} className={styles.time}>{datetime}</time>
             </p>
-            <Price size='medium'>{price}</Price>
+            <Price>{price}</Price>
         </footer>
     );
 }

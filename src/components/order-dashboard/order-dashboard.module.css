@@ -26,6 +26,12 @@
     list-style: none;
     padding: 0;
     composes: text text_type_digits-default mt-6 from global;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 0;
+    max-height: 20vh;
+    overflow: hidden;
 }
 
 .title {
@@ -52,7 +58,6 @@
 
 .ready {
     color: var(--colors-interface-success);
-    composes: mt-2 from global;
 }
 
 .inprogress {

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import {IngredientPage, ProfileOrders, HomePage, AuthPage, RegisterPage, ForgotPassword, ResetPassword,Profile, NotFound404} from '../../pages';
+import { IngredientPage, ProfileOrders, HomePage, AuthPage, RegisterPage, ForgotPassword, ResetPassword, Profile, NotFound404 } from '../../pages';
 import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import AppHeader from 'components/app-header/app-header';
 import { useEffect } from 'react';
@@ -14,9 +14,8 @@ import FeedPage from 'components/feed/feed';
 import OrderInfo from 'components/order-info/order-info';
 import ProtectedAuthorizedRoute from 'components/protected-authorized-route/protected-authorized-route';
 import LoaderSpinner from 'components/loader/loader';
-import { mockFeed, mockOrders } from '../../utils/data';
 import { closeDetailsModal } from 'services/slices/modalSlice';
-
+import OrderItemDetails from 'components/order-item-details/order-item-details';
 
 export const API = 'https://norma.nomoreparties.space/api';
 
@@ -24,7 +23,7 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
-  const {isLoading} = useSelector(store => store.auth)
+  const { isLoading } = useSelector(store => store.auth)
 
   let pushLocation = history.action === 'PUSH' && location.state && location.state.pushLocation;
 
@@ -32,26 +31,27 @@ function App() {
     dispatch(getIngredients())
     dispatch(getUser())
   }, [dispatch])
-  
+
   const closeModal = useCallback(() => {
     dispatch(closeDetailsModal())
-    dispatch(resetIngredientToShow())
     history.goBack();
+    dispatch(resetIngredientToShow())
+    // dispatch(resetOrderToShow())
   }, [dispatch, history]);
 
   return (
     <>
-      {isLoading && <LoaderSpinner type='default'/>} 
+      {isLoading && <LoaderSpinner type='default' />}
       <AppHeader />
       <Switch location={pushLocation || location}>
         <Route path="/" exact>
           <HomePage />
         </Route>
-        <Route path='/feed' exact={true}>
-          <FeedPage feedData={mockFeed} orderData={mockOrders}/>
+        <Route path='/feed' exact>
+          <FeedPage />
         </Route>
-        <Route path='/feed/:id' exact={true}>
-          <OrderInfo orderData={mockFeed[0]}/>
+        <Route path='/feed/:id' exact>
+          <OrderInfo/>
         </Route>
 
         <ProtectedAuthorizedRoute path="/login" exact>
@@ -75,7 +75,7 @@ function App() {
           <ProfileOrders />
         </ProtectedRoute>
         <ProtectedRoute path="/profile/orders/:id" exact>
-          <OrderInfo orderData={mockFeed[1]}/>
+          <OrderInfo />
         </ProtectedRoute>
 
         <Route path='/ingredients/:id' exact>
@@ -86,14 +86,24 @@ function App() {
         </Route>
       </Switch>
       {pushLocation && (
-        <Route path='/ingredients/:id' >
-          <Modal name="Details" title='Детали ингредиента' onClose={closeModal}>
-            <IngredientDetails />
-          </Modal>
-        </Route>
+          <Route path='/ingredients/:id' >
+            <Modal name="Details" title='Детали ингредиента' onClose={closeModal}>
+              <IngredientDetails />
+            </Modal>
+          </Route>
       )}
-    </>
-  );
-}
+      {pushLocation && (
+        <Route path='/feed/:id'>
+            <OrderItemDetails onClose={closeModal}/>
+        </Route>
+        )}
+        {pushLocation && (
+        <Route path='/profile/orders/:id'>
+            <OrderItemDetails onClose={closeModal}/>
+        </Route>
+        )}
+  </>
+  )}
 
 export default App;
+

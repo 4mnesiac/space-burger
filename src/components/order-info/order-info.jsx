@@ -1,42 +1,57 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import styles from './order-info.module.css';
-import ScrollContainer from 'components/scroll-container/scroll-container';
-import { OrderHeader, OrderItem, OrderFooter } from './parts';
+import { useParams } from 'react-router-dom'
+import { OrderTitle, OrderFooter, OrderContent } from './parts';
+import { useDispatch, useSelector } from 'react-redux';
+import { formatOrderDate } from 'utils/formatDate';
+import { getIngredients } from 'services/slices/ingredientsSlice';
+import LoaderSpinner from 'components/loader/loader';
+import { getOrderByIdApi } from 'services/api';
 
-const OrderInfo = ({ orderData }) => {
-    const { id, name, datetime, status, price, ingredients } = orderData;
+const OrderInfo = () => {
+    const [order, setOrder] = useState()
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    const { ingredients } = useSelector(store => store.ingredients)
+
+    const orderIngredients = ingredients && order &&
+        order.ingredients.map((id) =>
+            ingredients.find((item) => item._id === id)
+        );
+    const date = order && formatOrderDate(order.createdAt)
+
+    const orderPrice =
+        orderIngredients &&
+        ingredients &&
+        orderIngredients.reduce(function (prevValue, item) {
+            return prevValue + item.price;
+        }, 0);
+
+    React.useEffect(() => {
+        dispatch(getIngredients());
+        getOrderByIdApi(id)
+            .then((res) => {
+                setOrder(res.orders[0]);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [id, dispatch]);
+
     return (
-        <article className={styles.card}>
-            <OrderHeader id={id} name={name} status={status} />
-            <h3 className={styles.ingredients_title}>Состав:</h3>
-            <ScrollContainer height='300px'>
-                <ul className={styles.list}>
-                    {ingredients.map((item, index) => (
-                        <li className={styles.item} key={index}>
-                            <OrderItem ingredient={item} price={price} />
-                        </li>
-                    ))}
-                </ul>
-            </ScrollContainer>
-            <OrderFooter datetime={datetime} price={price} />
-        </article>
+        <>
+            {order ? (
+                <article className={styles.card}>
+                    <p className={styles.id}>#{order.number}</p>
+                    <OrderTitle id={order._id} name={order.name} status={order.status} />
+                    <OrderContent ingredients={orderIngredients} />
+                    <OrderFooter datetime={date} price={orderPrice} />
+                </article>
+            ) : (
+                <LoaderSpinner />
+            )}
+        </>
     );
 };
 
 export default OrderInfo;
-
-OrderInfo.propTypes = {
-    orderData: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        datetime: PropTypes.string.isRequired,
-        status: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        ingredients: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.string.isRequired,
-                image: PropTypes.string.isRequired,
-            })).isRequired,
-    }).isRequired
-};

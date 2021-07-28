@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const modalRoot = document.getElementById('modal-root');
 
-const Modal = ({ title, onClose, children, name }) => {
+const Modal = ({ title, onClose, children, name, titleType = 'default'}) => {
   const isOpen = useSelector(store => store.modal[`is${name}ModalOpen`])
 
   React.useEffect(() => {
@@ -27,7 +27,7 @@ const Modal = ({ title, onClose, children, name }) => {
   return ReactDOM.createPortal(
     <div className={modalStyles.container}>
       <div className={modalStyles.modal}>
-        <h2 className={modalStyles.heading}>{title}</h2>
+        <h2 className={titleType === 'id' ? modalStyles.heading_type_id : modalStyles.heading}>{title}</h2>
         <span className={modalStyles.close} onClick={onClose}>
           <CloseIcon />
         </span>
@@ -44,7 +44,8 @@ Modal.propTypes = {
   children: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
+  titleType: PropTypes.string
 }
 
 

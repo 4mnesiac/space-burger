@@ -36,17 +36,17 @@ const ProfileForm = () => {
     }, [name, email]);
 
     return (
-        <div className={s.user_info}>
+        <form className={s.user_info} onSubmit={onSubmit}>
             <CustomInput icon={'EditIcon'} name="name" type="text" value={form.name} placeholder="Имя" onChange={onChange} />
             <CustomInput icon={'EditIcon'} name="email" type="email" value={form.email} placeholder="Логин" onChange={onChange} />
             <CustomInput icon={'EditIcon'} name="password" type="password" value={form.password} placeholder="Пароль" onChange={onChange} />
             {isEdited && (
                 <span className={s.button}>
-                    <Button onClick={onSubmit} >Сохранить</Button>
+                    <Button>Сохранить</Button>
                     <Button onClick={onCancel} size='medium' type='secondary'>Отмена</Button>
                 </span>
             )}
-        </div>
+        </form>
     );
 }
 

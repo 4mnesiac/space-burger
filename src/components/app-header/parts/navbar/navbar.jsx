@@ -7,12 +7,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavItem} from "../nav-item";
 import navbarStyles from "./navbar.module.css";
-import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
+
 
 
 export default function NavBar() {
-
-  const name = useSelector(store => store.auth.user.name);
   const localName = localStorage.getItem('userName');
     return (
         <nav className={navbarStyles.navbar}>
@@ -28,11 +27,13 @@ export default function NavBar() {
             </div>
             </li>
             <li className={navbarStyles.logo}>
-              <Logo />
+              <Link to={'/'} className={navbarStyles.link}>
+                <Logo />
+              </Link>
            </li>
            <div className={navbarStyles.item_wrapper}>
             <li>
-              <NavItem text={name ? name : 'Личный кабинет'} link='/profile'>
+              <NavItem text={localName ? localName : 'Личный кабинет'} link='/profile'>
                 <ProfileIcon />
               </NavItem>
             </li>

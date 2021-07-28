@@ -1,62 +1,50 @@
 import React from 'react';
 import styles from './feed.module.css';
 import FeedCard from '../feed-card/feed-card';
-import { Link, useRouteMatch } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { OrderDashboard } from 'components/order-dashboard/order-dashboard';
 import ScrollContainer from 'components/scroll-container/scroll-container';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import wsActions from 'services/web-socket/wsActions';
+import LoaderSpinner from 'components/loader/loader';
 
-export default function FeedPage({ feedData, orderData }) {
-    const { url } = useRouteMatch();
+export default function FeedPage() {
+    const dispatch = useDispatch();
+    const {
+        orders,
+        wsConnected,
+        hasError,
+    } = useSelector((state) => state.feed);
+
+    useEffect(() => {
+        dispatch(wsActions.connect.wsConnectionInit('feed'));
+
+        return () => {
+            dispatch(wsActions.connect.wsConnectionClose());
+        };
+    }, [dispatch]);
 
     return (
-        <section className={styles.wrapper}>
-            <section className={styles.order_list}>
-                <h1 className={styles.heading}>Лента заказов</h1>
-                <ScrollContainer type='list' height='680px'>
-                    {feedData.map((item, index) => (
-                        <li className={styles.list_item} key={index}>
-                            <Link to={`${url}/${item.id}`} className={styles.link}>
-                                <FeedCard item={item} />
-                            </Link>
-                        </li>
-                    ))}
-                </ScrollContainer>
-            </section>
+        <>
+            {!wsConnected && !hasError && <LoaderSpinner/> }
+            {wsConnected && !hasError && (
+                <>
+                    <section className={styles.wrapper}>
+                        <section className={styles.order_list}>
+                            <h1 className={styles.heading}>Лента заказов</h1>
+                            <ScrollContainer type='list' height='680px'>
+                                {orders.map((item, index) => (
+                                    <li className={styles.list_item} key={index}>
+                                        <FeedCard item={item} />
+                                    </li>
+                                ))}
+                            </ScrollContainer>
+                        </section>
 
-            <OrderDashboard orderData={orderData} />
-        </section>
-    );
+                        <OrderDashboard />
+                    </section>
+                </>
+            )}
+        </>
+    )
 }
-FeedPage.propTypes = {
-    feedData: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            datetime: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            status: PropTypes.string.isRequired,
-            price: PropTypes.number.isRequired,
-            ingredients: PropTypes.arrayOf(
-                PropTypes.shape({
-                    name: PropTypes.string.isRequired,
-                    image: PropTypes.string.isRequired,
-                }).isRequired
-            ).isRequired
-        }).isRequired
-    ).isRequired,
-
-    orderData: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            status: PropTypes.string.isRequired,
-            timestamp: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            ingredientIDs: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-            price: PropTypes.number.isRequired,
-        }).isRequired
-    ).isRequired
-
-}
-
-
-

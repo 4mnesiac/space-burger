@@ -68,7 +68,6 @@ export const getUser = createAsyncThunk('auth/getUser', async () => {
   try {
     const response = await getUserApi()
     if (response && response.success) {
-      console.log(response)
       localStorage.setItem('userName', response.user.name)
       return response
     }

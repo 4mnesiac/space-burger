@@ -46,7 +46,7 @@ const ForgotPassword = () => {
                 />
 
                 <span className={styles.button}>
-                    <Button onClick={onSubmit}>Восстановить</Button>
+                    <Button>Восстановить</Button>
                 </span>
             </form>
             <p className={styles.text}>

@@ -1,5 +1,5 @@
 .footer {
-    composes: pt-10 from global;
+    composes: pt-10 pb-10 from global;
     display: flex;
     justify-content: space-between;
 }

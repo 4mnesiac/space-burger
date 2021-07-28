@@ -58,6 +58,3 @@
   composes: text_type_main-default from global;
 }
 
-.link {
-  text-decoration: none;
-}
