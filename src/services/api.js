@@ -236,7 +236,6 @@ export const getOrderByIdApi = async (id) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        authorization: getCookie('token'),
       },
     })
     const res = await checkResponse(response)

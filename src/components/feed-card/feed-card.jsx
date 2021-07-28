@@ -14,7 +14,7 @@ import { setOrderToShow } from 'services/slices/orderSlice';
 
 const FeedCard = ({ item }) => {
   const ingredientList = useSelector(store => store.ingredients.ingredients)
-  const { _id, number, createdAt, name, status, ingredients } = item;
+  const { number, createdAt, name, status, ingredients } = item;
   const [previews, setPreviews] = useState([])
   const { url } = useRouteMatch();
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const FeedCard = ({ item }) => {
 
 
   return (
-    <Link to={{ pathname: `${url}/${_id}`, state: { from: location.pathname, pushLocation: location } }} className={styles.link} onClick={handleOpen}>
+    <Link to={{ pathname: `${url}/${number}`, state: { from: location.pathname, pushLocation: location } }} className={styles.link} onClick={handleOpen}>
       <article className={styles.card} >
         <header className={styles.header}>
           <span className={styles.id}>#{number}</span>

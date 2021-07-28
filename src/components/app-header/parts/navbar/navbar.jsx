@@ -7,6 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavItem} from "../nav-item";
 import navbarStyles from "./navbar.module.css";
+import { Link } from 'react-router-dom';
 
 
 
@@ -26,7 +27,9 @@ export default function NavBar() {
             </div>
             </li>
             <li className={navbarStyles.logo}>
-              <Logo />
+              <Link to={'/'} className={navbarStyles.link}>
+                <Logo />
+              </Link>
            </li>
            <div className={navbarStyles.item_wrapper}>
             <li>

@@ -31,7 +31,6 @@ const OrderInfo = () => {
         dispatch(getIngredients());
         getOrderByIdApi(id)
             .then((res) => {
-                // с сервера приходит одно и то же значение, независимо откуда я выполняю запрос и с каким id
                 setOrder(res.orders[0]);
             })
             .catch((error) => {
