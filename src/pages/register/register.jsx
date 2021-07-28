@@ -9,7 +9,7 @@ import { useLocation, Redirect, useHistory } from 'react-router-dom';
 import LoaderSpinner from 'components/loader/loader';
 
 const RegisterPage = () => {
-    const { isAuthorized, hasError, isLoading } = useSelector(store => store.auth)
+    const { isAuthorized, isLoading } = useSelector(store => store.auth)
     const location = useLocation();
     const history = useHistory()
 
@@ -22,9 +22,12 @@ const RegisterPage = () => {
     };
     const onSubmit = async e => {
         e.preventDefault();
-        await dispatch(register(form))
-        setForm({ name: '', email: '', password: '' })
-        return history.replace('/login');
+        let res = await dispatch(register(form))
+        console.log(res)
+        if (!res.error) {
+            setForm({ name: '', email: '', password: '' })
+            return history.replace('/login');
+        }
     }
     if (isAuthorized) {
         console.log('in name ', location.state)
@@ -36,7 +39,7 @@ const RegisterPage = () => {
     return (
         <>
         {isLoading && <LoaderSpinner/>}
-        {!isLoading && !hasError (
+        {!isLoading && (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={onSubmit}>
                 <h1 className={styles.heading}>Регистрация</h1>

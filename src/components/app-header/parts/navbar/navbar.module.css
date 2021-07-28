@@ -16,3 +16,7 @@
 .item_wrapper {
     display: flex;
 }
+.link {
+    text-decoration: none;
+    color: inherit;
+}

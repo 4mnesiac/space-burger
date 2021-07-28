@@ -16,7 +16,7 @@ const Bun = ({ position }) => {
             setIsEmpty(true)
         }
     }, [bun])
-
+    const positionText = position === 'top' ? '(верх)' : '(низ)';
     return (
         <div className={isEmpty ? bunStyles.bun_empty : bunStyles.bun}>
             {!isEmpty
@@ -24,14 +24,14 @@ const Bun = ({ position }) => {
                     <ConstructorElement
                         type={position}
                         isLocked={true}
-                        text={bun?.name}
+                        text={`${bun?.name} ${positionText}`}
                         price={bun?.price}
                         thumbnail={bun?.image}
                     />)
                 : (
                     <ConstructorElement
                         type={position}
-                        text={"Место для аппетитной булки"}
+                        text={`Место для аппетитной булки ${positionText}`}
                     />)
             }
         </div>

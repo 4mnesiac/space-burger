@@ -6,6 +6,10 @@ const checkResponse = (res) => {
 }
 
 export const refreshExpiredTokenApi = async (func, arg = null) => {
+  const refreshToken = localStorage.getItem('token');
+  if (refreshToken) {
+    return Promise.reject('Нет токена')
+  }
   try {
     const response = await fetch(`${API}/auth/token`, {
       method: 'POST',
@@ -13,7 +17,7 @@ export const refreshExpiredTokenApi = async (func, arg = null) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token: localStorage.getItem('token'),
+        token: refreshToken,
       }),
     })
     const res = await checkResponse(response)
@@ -236,7 +240,6 @@ export const getOrderByIdApi = async (id) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        authorization: getCookie('token'),
       },
     })
     const res = await checkResponse(response)

@@ -14,14 +14,16 @@ import { setOrderToShow } from 'services/slices/orderSlice';
 
 const FeedCard = ({ item }) => {
   const ingredientList = useSelector(store => store.ingredients.ingredients)
-  const { _id, number, createdAt, name, status, ingredients } = item;
+  const { number, createdAt, name, status, ingredients } = item;
   const [previews, setPreviews] = useState([])
   const { url } = useRouteMatch();
   const dispatch = useDispatch();
   const location = useLocation()
+
+  // собираем данные ингредиентов по их id
   const formattedIngredients = formatData(ingredients, ingredientList);
 
-  // возможны баги
+  // собираем данные для отображения списка ингредиентов
   useEffect(() => {
     for (let index = 0; index < formattedIngredients.length; index++) {
       const ingredient = formattedIngredients[index];
@@ -56,7 +58,7 @@ const FeedCard = ({ item }) => {
 
 
   return (
-    <Link to={{ pathname: `${url}/${_id}`, state: { from: location.pathname, pushLocation: location } }} className={styles.link} onClick={handleOpen}>
+    <Link to={{ pathname: `${url}/${number}`, state: { from: location.pathname, pushLocation: location } }} className={styles.link} onClick={handleOpen}>
       <article className={styles.card} >
         <header className={styles.header}>
           <span className={styles.id}>#{number}</span>
@@ -93,7 +95,7 @@ FeedCard.propTypes = {
     name: PropTypes.string.isRequired,
     number: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
-    ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired
 }
 
