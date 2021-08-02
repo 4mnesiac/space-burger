@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { resetPasswordApi, forgotPasswordApi } from '../api'
 
-const initialState = {
+export const initialState = {
   isLoading: false,
   hasError: false,
   success: false,
