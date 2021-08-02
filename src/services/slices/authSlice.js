@@ -29,6 +29,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
     localStorage.removeItem('token')
     localStorage.removeItem('userName')
     console.log('logout success')
+    return res;
   } else {
     return Promise.reject(res.message)
   }
@@ -38,16 +39,16 @@ export const register = createAsyncThunk('auth/register', async (form) => {
   const res = await registerRequestApi(form)
   if (res && res.success) {
     console.log('register success' + res.user)
-    return res
+    return res.user
   } else {
     return Promise.reject(res.message)
   }
 })
 
-export const updateUser = createAsyncThunk('auth/update-user', async (form) => {
+export const updateUser = createAsyncThunk('auth/updateUser', async (form) => {
   try {
     const res = await updateUserApi(form)
-    debugger
+  
     if (res && res.success) {
       localStorage.setItem('userName', res.user.name)
       console.log('update success ', res)
@@ -55,7 +56,7 @@ export const updateUser = createAsyncThunk('auth/update-user', async (form) => {
     }
     throw new Error(res)
   } catch (error) {
-    debugger
+  
     if (error.message === 'jwt expired') {
       return await refreshExpiredTokenApi(updateUserApi, form)
     }
@@ -82,7 +83,7 @@ export const getUser = createAsyncThunk('auth/getUser', async () => {
   }
 })
 
-const initialState = {
+export const initialState = {
   isAuthorized: false,
   user: {
     name: '',

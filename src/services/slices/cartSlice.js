@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from '@reduxjs/toolkit';
-const initialState = {
+
+export const initialState = {
   sortedCart: {
     bun: null,
     fillers: [],
@@ -37,7 +38,11 @@ export const cartSlice = createSlice({
       const { id, itemIndex } = action.payload;
       const newFillers = [...state.sortedCart.fillers];
       newFillers.splice(itemIndex, 1);
-      state.counts[id]--;
+      if (state.counts[id] === 1){
+        state.counts[id] = 0;
+      } else {
+        state.counts[id]--;
+      }
       state.sortedCart.fillers = newFillers;
     },
     resetCart: (state) => state = initialState,

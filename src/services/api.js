@@ -17,7 +17,7 @@ export const refreshExpiredTokenApi = async (func, arg = null) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token: refreshToken,
+        token: localStorage.getItem('token'),
       }),
     })
     const res = await checkResponse(response)
@@ -25,7 +25,7 @@ export const refreshExpiredTokenApi = async (func, arg = null) => {
       setCookie('token', res.accessToken)
       localStorage.setItem('token', res.refreshToken)
       console.log('refresh success!')
-      return func(arg)
+      return await func(arg)
     } else {
       throw new Error(res.message)
     }

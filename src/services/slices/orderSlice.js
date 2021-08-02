@@ -14,7 +14,7 @@ export const setOrder = createAsyncThunk('order/setOrder', async (ids) => {
       console.log(error.message)
       return await refreshExpiredTokenApi(sendOrderApi, ids)
     }
-    console.log(`Catched and hadled error: "${error.message}"`)
+    console.log(`Catched and hadled error: "${error}"`)
     return Promise.reject(error.message)
   }
 })
@@ -32,7 +32,7 @@ export const getOrders = createAsyncThunk('order/getOrders', async () => {
       console.log(error.message)
       return await refreshExpiredTokenApi(getAllOrdersApi, null)
     }
-    console.log(`Catched and hadled error: "${error.message}"`)
+    console.log(`Catched and hadled error: "${error}"`)
     return Promise.reject(error.message)
   }
 })
@@ -72,18 +72,19 @@ export const getOrderById = createAsyncThunk('order/getOrderById', async (id) =>
   }
 })
 
+export const initialState = {
+  allOrders: [],
+  userOrders: [],
+  orderToShow: {},
+  total: null,
+  totalToday: null,
+  order: {},
+  isLoading: false,
+  hasError: false,
+}
 export const orderSlice = createSlice({
   name: 'order',
-  initialState: {
-    allOrders: [],
-    userOrders: [],
-    orderToShow: {},
-    total: null,
-    totalToday: null,
-    order: {},
-    isLoading: false,
-    hasError: false,
-  },
+  initialState,
   reducers: {
     clearOrder: (state) => {
       state.order = {}
