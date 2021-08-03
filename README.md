@@ -34,3 +34,5 @@ It correctly bundles React in production mode and optimizes the build for the be
 4.0.1 - добавлен ```websocket```, попапы для ленты заказов.
 
 4.1.1 - небольшие исправления страницы отдельного заказа, улучшения UI.
+
+4.2.1 - добавлены интеграционные и модульные тесты.

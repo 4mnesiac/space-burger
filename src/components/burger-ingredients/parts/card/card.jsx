@@ -23,7 +23,7 @@ const Card = ({ item, onClick }) => {
             pathname: `/ingredients/${item._id}`,
             state: { from: location.pathname, pushLocation: location }
         }}>
-            <article key={item._id} onClick={() => onClick(item)} ref={dragRef}>
+            <article className={cardStyles.card} key={item._id} onClick={() => onClick(item)} ref={dragRef}>
                 {counts[item._id] > 0 && <Counter count={item.type === 'bun' ? counts[item._id] + 1 : counts[item._id]} />}
                 <picture className={cardStyles.picture}>
                     <source media="(max-width: 767px)" srcSet={item.image_mobile} />

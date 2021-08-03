@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+export const initialState = {
   orders: [],
   wsConnected: false,
   hasError: null,
@@ -27,7 +27,6 @@ const userFeedSlice = createSlice({
         state.hasError = true
         return
       }
-
       state.orders = orders
     },
   },

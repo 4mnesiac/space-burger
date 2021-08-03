@@ -7,24 +7,29 @@ export const getIngredients = createAsyncThunk(
         try {
             const response = await fetch(API + '/ingredients');
             if (!response.ok) {
-                throw new Error('Failed response: ' + response)
+                return Promise.reject('Failed response: ', response)
             }
             const ingredients = await response.json();
-            return ingredients.data;
+            if (ingredients.success) {
+                return ingredients.data;
+            } else {
+                return Promise.reject(response)
+            }
         } catch (error) {
             console.log('Catched error: ' + error.message)
+            return Promise.reject(error.message)
         }
     }
 )
-
+export const initialState = {
+    ingredients: [],
+    ingredientToShow: {},
+    isLoading: false,
+    hasError: false,
+}
 export const ingredientsSlice = createSlice({
     name: 'ingredients',
-    initialState: {
-        ingredients: [],
-        ingredientToShow: {},
-        isLoading: false,
-        hasError: false,
-    },
+    initialState,
     reducers: {
         setIngredientToShow: (state, action) => {
             state.ingredientToShow = action.payload;
