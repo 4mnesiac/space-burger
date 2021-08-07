@@ -14,13 +14,18 @@
 
 ### `yarn start` | `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Запуск проекта в ```development mode```.\
+Для просмотра откройте путь [http://localhost:3000](http://localhost:3000) в браузере.
 
 ### `yarn build` | `npm build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Запуск проекта в ```production mode```, сборка в папку `build`.\
+Это корректная сборка React продакшн версии приложения, оптимизированная для лучшей производительности.
+
+### `yarn test` | `npm test`
+
+Запуск unit-тестирования с помощью ```jest```
+Для e2e тестирование используется ```cypress```, для запуска используется команда ```npx cypress open```.
 
 
 ## Versions
@@ -36,3 +41,5 @@ It correctly bundles React in production mode and optimizes the build for the be
 4.1.1 - небольшие исправления страницы отдельного заказа, улучшения UI.
 
 4.2.1 - добавлены интеграционные и модульные тесты.
+
+4.3.1 - теперь проект полностью на Typescript, небольшие улучшения стабильности и безопасности приложения.

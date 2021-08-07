@@ -18,7 +18,7 @@ describe( 'homepage dnd testing', function () {
     cy.get( 'article[class^="card_card"]' ).eq(3)
       .trigger( 'dragstart' );
 
-    cy.get( 'section[class^="burger-constructor_constructor"]' )
+    cy.get( 'section[class^="burger-constructor_container"]' )
       .trigger( 'dragenter' )
       .trigger( 'drop' );
 
