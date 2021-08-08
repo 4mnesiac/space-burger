@@ -27,7 +27,7 @@ export const refreshExpiredTokenApi = async (func?: Function, args: TAllowableAr
     const res = await checkResponse(response)
     if (res && res.success) {
       if (res.refreshToken !== refreshToken) {
-        setCookie('token', res.accessToken)
+        setCookie('token', res.accessToken, {path: '/'})
         localStorage.setItem('token', res.refreshToken)
         console.log('refresh success!')
         if (func) {

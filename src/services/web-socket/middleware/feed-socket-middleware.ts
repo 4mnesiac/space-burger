@@ -34,7 +34,7 @@ const socketMiddleware = () => {
 
           if (restParsedData.message && restParsedData.message === 'Invalid or missed token') {
             refreshExpiredTokenApi().then((res) => {
-              setCookie('token', res.accessToken)
+              setCookie('token', res.accessToken, {path: '/'})
               localStorage.setItem('token', res.refreshToken)
 
               dispatch(wsActions.connect.wsConnectionInit(payload))

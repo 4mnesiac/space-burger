@@ -76,6 +76,9 @@ export type TIcons =
 export type TOrderStatus = 'Выполнен' | 'Готовится' | 'Создан' | 'Отменен';
 export type TOrderStatusCode = 'done' | 'pending' | 'created' | 'cancel';
 
+export type TOrderStatuses = {
+    [K in TOrderStatusCode]: TOrderStatus;
+  };
 // **тип данных пользователя**
 export type TUser = { email?: string; name?: string; password?: string, token?: string };
 

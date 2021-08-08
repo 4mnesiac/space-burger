@@ -3,16 +3,17 @@ import styles from './order-info.module.css'
 import { useAppParams, useAppDispatch, useAppSelector } from 'services/hooks'
 import { OrderTitle, OrderFooter, OrderContent } from './parts'
 import { formatOrderDate } from 'utils/formatDate'
-import { getIngredients } from 'services/slices/ingredientsSlice'
+
 import LoaderSpinner from 'components/loader/loader'
 import { getOrderByIdApi } from 'services/api'
-import { TIngredient, TingredientList, TOrder } from 'types/types'
+import { TingredientList, TOrder } from 'types/types'
+import calculatePrice from 'utils/calculatePrice'
 
 const OrderInfo: FC = () => {
   const [order, setOrder] = useState<TOrder | undefined>()
   const dispatch = useAppDispatch()
   const { id } = useAppParams()
-  const { ingredients } = useAppSelector((store) => store.ingredients)
+  const { ingredients, isLoading } = useAppSelector((store) => store.ingredients)
 
   const orderIngredients =
     ingredients && order && order.ingredients.map((id) => ingredients.find((item) => item._id === id))
@@ -21,12 +22,11 @@ const OrderInfo: FC = () => {
   const orderPrice =
     orderIngredients &&
     ingredients &&
-    orderIngredients.reduce(function (prevValue, item) {
-      return prevValue + (item as TIngredient).price
-    }, 0)
+    calculatePrice(orderIngredients);
+
 
   React.useEffect(() => {
-    dispatch(getIngredients())
+    // dispatch(getIngredients())
     getOrderByIdApi(id)
       .then((res) => {
         setOrder(res.orders[0])
@@ -38,7 +38,7 @@ const OrderInfo: FC = () => {
 
   return (
     <>
-      {order ? (
+      {!isLoading && order ? (
         <article className={styles.card}>
           <p className={styles.id}>#{order.number}</p>
           <OrderTitle name={order.name} status={order.status} />

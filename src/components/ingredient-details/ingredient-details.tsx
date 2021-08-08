@@ -6,7 +6,7 @@ import LoaderSpinner from 'components/loader/loader';
 
 const IngredientDetails: FC = () => {
     const { id } = useAppParams();
-    const { ingredients } = useAppSelector(store => store.ingredients);
+    const { ingredients, isLoading, hasError } = useAppSelector(store => store.ingredients);
     const activeIngredientFromStore = useAppSelector(store => store.ingredients.ingredientToShow);
 
     let activeIngredient;
@@ -18,7 +18,7 @@ const IngredientDetails: FC = () => {
 
     return (
         <>
-            {activeIngredient.name ? (
+            {!isLoading && !hasError && ingredients.length !== 0 ? (
                         <div className={detailsModalStyles.detail}>
                         <picture className={detailsModalStyles.picture}>
                             <source media="(max-width: 768px)" srcSet={activeIngredient.image_mobile} />

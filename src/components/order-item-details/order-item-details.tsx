@@ -4,7 +4,8 @@ import { useAppSelector } from 'services/hooks'
 import styles from './order-item-details.module.css'
 import { formatOrderDate } from 'utils/formatDate'
 import { OrderContent, OrderFooter, OrderTitle } from 'components/order-info/parts'
-import { TIngredient, TingredientList, TOrder } from 'types/types'
+import { TingredientList, TOrder } from 'types/types'
+import calculatePrice from 'utils/calculatePrice'
 
 interface IOrderItemDetails {
   onClose: () => void
@@ -23,9 +24,7 @@ const OrderItemDetails: FC<IOrderItemDetails> = ({ onClose }) => {
   const orderPrice =
     orderIngredients &&
     ingredients &&
-    orderIngredients.reduce(function (prevValue, item) {
-      return prevValue + (item as TIngredient).price
-    }, 0)
+    calculatePrice(orderIngredients);
 
   return (
     <Modal name='Details' title={`#${number}`} onClose={onClose} titleType='id'>

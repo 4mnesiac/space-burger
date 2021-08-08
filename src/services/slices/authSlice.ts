@@ -28,7 +28,7 @@ export type Tlogin = Omit<Tform, 'name'>
 export const login = createAsyncThunk('auth/login', async (form: Tlogin) => {
   const res = await loginRequestApi(form)
   if (res && res.success) {
-    setCookie('token', res.accessToken)
+    setCookie('token', res.accessToken, {path: '/'})
     localStorage.setItem('token', res.refreshToken)
     localStorage.setItem('userName', res.user.name)
     console.log('Login success, ' + res.user.name)
@@ -41,7 +41,7 @@ export const login = createAsyncThunk('auth/login', async (form: Tlogin) => {
 export const logout = createAsyncThunk('auth/logout', async () => {
   const res = await logoutRequestApi()
   if (res && res.success) {
-    setCookie('token', '')
+    setCookie('token', '', {path: '/'})
     localStorage.removeItem('token')
     localStorage.removeItem('userName')
     console.log('logout success')

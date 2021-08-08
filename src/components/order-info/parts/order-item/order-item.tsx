@@ -18,7 +18,7 @@ const OrderItem: FC<IOrderItem> = ({ ingredient, price }) => {
       </div>
       <h4 className={styles.ingredient_name}>{ingredient.name}</h4>
       <span className={styles.price}>
-        {1}&nbsp;x&nbsp;{price}
+        {ingredient && ingredient.type === 'bun' ? 2 : 1}&nbsp;x&nbsp;{price}
         <CurrencyIcon type='primary' />
       </span>
     </article>
