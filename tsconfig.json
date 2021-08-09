@@ -1,14 +1,23 @@
 {
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "classnameTransform": "dashes",
+        }
+      }
+    ],
     "baseUrl": "src",
     "target": "es5",
     "lib": [
-      "dom",
+      "DOM",
       "dom.iterable",
       "esnext"
     ],
     "allowJs": true,
     "checkJs": false,
+    "strictNullChecks": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
