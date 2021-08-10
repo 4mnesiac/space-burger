@@ -1,5 +1,5 @@
 # Space Burger Project
-[https://4mnesiac.github.io/space-burger](ссылка на проект в gh-pages)
+[ссылка на проект в gh-pages](https://4mnesiac.github.io/space-burger)
 
 ## Аннотация 
 
