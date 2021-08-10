@@ -6,3 +6,4 @@ export const ORDER_STATUS: TOrderStatuses = {
     created: 'Создан',
     cancel: 'Отменен'
   };
+export const BASE_URL: string = 'https://4mnesiac.github.io/space-burger/';
