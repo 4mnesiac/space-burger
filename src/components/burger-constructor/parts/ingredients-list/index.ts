@@ -1,1 +1,0 @@
-export { default as IngredientsList } from "./ingredients-list";

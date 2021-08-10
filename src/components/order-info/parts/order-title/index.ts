@@ -1,1 +1,0 @@
-export { default as OrderTitle } from "./order-title";

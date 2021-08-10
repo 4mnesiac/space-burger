@@ -1,4 +1,0 @@
-.tab_container {
-  display: flex;
-  composes: mb-10 from global;
-}

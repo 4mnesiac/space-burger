@@ -1,1 +1,0 @@
-export { default as NutritionItem } from "./nutrition-item";

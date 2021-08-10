@@ -1,1 +1,0 @@
-export { default as OrderFooter } from "./order-footer";

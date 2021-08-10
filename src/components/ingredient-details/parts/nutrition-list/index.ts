@@ -1,1 +1,0 @@
-export { default as NutritionList } from "./nutrition-list";
